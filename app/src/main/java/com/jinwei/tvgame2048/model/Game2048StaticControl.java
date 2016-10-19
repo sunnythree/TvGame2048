@@ -1,5 +1,6 @@
 package com.jinwei.tvgame2048.model;
 
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.Log;
@@ -36,5 +37,18 @@ public class Game2048StaticControl {
             }
         }
     }
-
+    public static int []gameNumberColors={
+            Color.rgb(238, 228, 218),        // 2
+            Color.rgb(237, 224, 200),		// 4
+            Color.rgb(242, 177, 121),		// 8
+            Color.rgb(245, 149, 99),			//16
+            Color.rgb(246, 124, 95),			//32
+            Color.rgb(246, 94, 59),			//64
+            Color.rgb(237, 207, 114),		//128
+            Color.rgb(237, 204, 97),			//256
+            Color.rgb(246, 206, 70),			//512
+            Color.rgb(237, 197, 63),			//1024
+            Color.rgb(234, 185, 19)			//2048
+    };
+    public static int gameSurfacceViewGbColor = Color.rgb(187,173,160);
 }
