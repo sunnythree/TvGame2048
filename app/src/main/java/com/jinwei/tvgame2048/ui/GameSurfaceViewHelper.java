@@ -26,6 +26,9 @@ public class GameSurfaceViewHelper {
         //mGAM.getNumber(0,0).mScores = 2;
         //mGAM.getNumber(0,3).mScores = 2;
     }
+    public void registListener(GameSurfaceView surfaceView){
+        mGAM.setListener(surfaceView);
+    }
     public void doDraw(Canvas canvas, Paint paint ){
         initSurfaceBg(canvas,paint);
         drawSurfaceMap(canvas,paint);
@@ -63,13 +66,16 @@ public class GameSurfaceViewHelper {
                 Game2048StaticControl.gameRadiumOfNumberViews, paint);
         int textSize = 100;
         int numberCount = 1;
-        if(mGAM.getNumber(x, y).mScores>999){
+        if(mGAM.getNumber(x, y).mScores>9999){
+            textSize = 20;
+            numberCount = 5;
+        }else if(mGAM.getNumber(x, y).mScores>999){
             textSize = 40;
             numberCount = 4;
         }else if(mGAM.getNumber(x, y).mScores>99){
             textSize = 60;
             numberCount = 3;
-        } if(mGAM.getNumber(x, y).mScores>9){
+        }else if(mGAM.getNumber(x, y).mScores>9){
             textSize = 80;
             numberCount = 2;
         }else {
@@ -90,13 +96,16 @@ public class GameSurfaceViewHelper {
                 Game2048StaticControl.gameRadiumOfNumberViews, paint);
         int textSize = 100;
         int numberCount = 1;
-        if(mGAM.getNumber(x, y).mScores>999){
+        if(mGAM.getNumber(x, y).mScores>9999){
+            textSize = 20;
+            numberCount = 5;
+        }else if(mGAM.getNumber(x, y).mScores>999){
             textSize = 40;
             numberCount = 4;
         }else if(mGAM.getNumber(x, y).mScores>99){
             textSize = 60;
             numberCount = 3;
-        } if(mGAM.getNumber(x, y).mScores>9){
+        }else if(mGAM.getNumber(x, y).mScores>9){
             textSize = 80;
             numberCount = 2;
         }else {
@@ -128,13 +137,16 @@ public class GameSurfaceViewHelper {
         }
         int textSize = 100;
         int numberCount = 1;
-        if(mGAM.getNumber(x, y).mScores>999){
+        if(mGAM.getNumber(x, y).mScores>9999){
+            textSize = 20;
+            numberCount = 5;
+        }else if(mGAM.getNumber(x, y).mScores>999){
             textSize = 40;
             numberCount = 4;
         }else if(mGAM.getNumber(x, y).mScores>99){
             textSize = 60;
             numberCount = 3;
-        } if(mGAM.getNumber(x, y).mScores>9){
+        }else if(mGAM.getNumber(x, y).mScores>9){
             textSize = 80;
             numberCount = 2;
         }else {
@@ -147,34 +159,7 @@ public class GameSurfaceViewHelper {
                 (rectF.top + rectF.bottom)/2+textSize/3,paint);
 
     }
-    public void upKeyUpdate(Canvas canvas, Paint paint){
-       mGAM.swapNumber(0,3);
-        Log.d(TAG,"upKeyUpdate");
-        initSurfaceBg(canvas,paint);
-        drawSurfaceMap(canvas,paint);
-        drawSurfaceNumbers(canvas,paint);
 
-    }
-    public void downKeyUpdate(Canvas canvas, Paint paint){
-        mGAM.swapNumber(3,0);
-        initSurfaceBg(canvas,paint);
-        drawSurfaceMap(canvas,paint);
-        drawSurfaceNumbers(canvas,paint);
-    }
-    public void leftKeyUpdate(SurfaceHolder holder, Paint paint){
-        Log.d(TAG,"leftKeyUpdate");
-        mGAM.leftKeyDealAlgorithm();
-        startAnimation(holder,paint,DIRECT_LEFT);
-        mGAM.updateNumbers();
-        mGAM.setOneRandomNumberInRandomPosition();
-        Canvas canvas = holder.lockCanvas();
-        doDraw(canvas,paint);
-        holder.unlockCanvasAndPost(canvas);
-    }
-    public void rightKeyUpdate(){
-
-
-    }
     private final int DIRECT_UP = 0;
     private final int DIRECT_DOWN = 1;
     private final int DIRECT_LEFT = 2;
@@ -188,7 +173,7 @@ public class GameSurfaceViewHelper {
             drawSurfaceMapAndNumbersWhoIsNeedCombine(canvas,paint);
             for (int i = 0; i < 4; i++) {
                 for (int j = 0; j < 4; j++) {
-                    RectF rectF = mGAM.aniInsertValue(i, j, count, 10,DIRECT_LEFT);
+                    RectF rectF = mGAM.aniInsertValue(i, j, count, 10,direct);
                     if(rectF != null && mGAM.isPosionHasNumber(i,j) && mGAM.getNumber(i,j).isNeedMove){
                         drawNumberByRectF(i,j,canvas,paint,rectF);
                     }
@@ -214,5 +199,49 @@ public class GameSurfaceViewHelper {
                 }
             }
         }
+    }
+    private void generateRandomNumberAnimation(){
+
+    }
+
+    public void upKeyUpdate(SurfaceHolder holder, Paint paint){
+        Log.d(TAG,"upKeyUpdate");
+        mGAM.upKeyDealAlgorithm();
+        startAnimation(holder,paint,DIRECT_UP);
+        mGAM.updateNumbers();
+        mGAM.setOneRandomNumberInRandomPosition();
+        Canvas canvas = holder.lockCanvas();
+        doDraw(canvas,paint);
+        holder.unlockCanvasAndPost(canvas);
+    }
+    public void downKeyUpdate(SurfaceHolder holder, Paint paint){
+        Log.d(TAG,"downKeyUpdate");
+        mGAM.downKeyDealAlgorithm();
+        startAnimation(holder,paint,DIRECT_DOWN);
+        mGAM.updateNumbers();
+        mGAM.setOneRandomNumberInRandomPosition();
+        Canvas canvas = holder.lockCanvas();
+        doDraw(canvas,paint);
+        holder.unlockCanvasAndPost(canvas);
+    }
+    public void leftKeyUpdate(SurfaceHolder holder, Paint paint){
+        Log.d(TAG,"leftKeyUpdate");
+        mGAM.leftKeyDealAlgorithm();
+        startAnimation(holder,paint,DIRECT_LEFT);
+        mGAM.updateNumbers();
+        mGAM.setOneRandomNumberInRandomPosition();
+        Canvas canvas = holder.lockCanvas();
+        doDraw(canvas,paint);
+        holder.unlockCanvasAndPost(canvas);
+    }
+    public void rightKeyUpdate(SurfaceHolder holder, Paint paint){
+        Log.d(TAG,"rightKeyUpdate");
+        mGAM.rightKeyDealAlgorithm();
+        startAnimation(holder,paint,DIRECT_RIGHT);
+        mGAM.updateNumbers();
+        mGAM.setOneRandomNumberInRandomPosition();
+        Canvas canvas = holder.lockCanvas();
+        doDraw(canvas,paint);
+        holder.unlockCanvasAndPost(canvas);
     }
 }

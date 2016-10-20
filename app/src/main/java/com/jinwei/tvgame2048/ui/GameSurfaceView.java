@@ -11,40 +11,46 @@ import android.view.KeyEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import com.jinwei.tvgame2048.algorithm.Game2048Algorithm;
 import com.jinwei.tvgame2048.model.Game2048StaticControl;
 
 /**
  * Created by Jinwei on 2016/10/18.
  */
-public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callback{
+public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callback,Game2048Algorithm.GameResultListener{
     private final String TAG = "GameSurfaceView";
     GameSurfaceViewHelper mGSVH ;
     Canvas mCanvas;
     SurfaceHolder mHolder;
     Paint mPaint;
+
+    @Override
+    public void onGameOver() {
+
+    }
+
+    @Override
+    public void onGameVictory() {
+
+    }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         switch (keyCode){
             case KeyEvent.KEYCODE_DPAD_UP:{
-                mCanvas = mHolder.lockCanvas();
-                mGSVH.upKeyUpdate(mCanvas,mPaint);
-                mHolder.unlockCanvasAndPost(mCanvas);
+                mGSVH.upKeyUpdate(mHolder,mPaint);
                 return true;
             }
             case KeyEvent.KEYCODE_DPAD_DOWN:{
-                mCanvas = mHolder.lockCanvas();
-                mGSVH.downKeyUpdate(mCanvas,mPaint);
-                mHolder.unlockCanvasAndPost(mCanvas);
+                mGSVH.downKeyUpdate(mHolder,mPaint);
                 return true;
             }
             case KeyEvent.KEYCODE_DPAD_LEFT:{
-                Log.d(TAG,"KEYCODE_DPAD_LEFT");
                 mGSVH.leftKeyUpdate(mHolder,mPaint);
-                doDraw();
                 return true;
             }
             case KeyEvent.KEYCODE_DPAD_RIGHT:{
-                mGSVH.rightKeyUpdate();
+                mGSVH.rightKeyUpdate(mHolder,mPaint);
                 return true;
             }
         }
@@ -93,5 +99,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     public void init(){
         getHolder().addCallback(this);
     }
-
+    public void registListener(){
+        mGSVH.registListener(this);
+    }
 }

@@ -13,7 +13,12 @@ import java.util.Random;
  * Created by Jinwei on 2016/10/19.
  */
 public class Game2048Algorithm {
+    public static interface GameResultListener{
+        public void onGameOver();
+        public void onGameVictory();
+    }
     private Numbers mNumbers;
+    GameResultListener mListener;
     private final String TAG = "Game2048Algorithm";
     public Game2048Algorithm(){
         mNumbers = new Numbers();
@@ -31,12 +36,20 @@ public class Game2048Algorithm {
         int number  = random.nextInt(blankcount);
         return number;
     }
+    public void setListener(GameResultListener listener){
+        mListener = listener;
+    }
     public void setOneRandomNumberInRandomPosition(){
         int scores = Game2048Algorithm.getRandom2Or4();
         int blankCount = mNumbers.getBlankCount();
         int blankTh = 0;
         if(blankCount==0){
-            //gameover
+            if(checkGameOver()){
+                //gameOver
+                if(mListener != null){
+                    mListener.onGameOver();
+                }
+            }
             return;
         }else{
             blankTh = Game2048Algorithm.getRandomPosition(blankCount);
@@ -171,4 +184,141 @@ public class Game2048Algorithm {
         }
     }
 
+    public void rightKeyDealAlgorithm(){
+        int i, j, k;
+        boolean isMoved = false;
+        for(i=0;i<4;i++){
+            j=k=3;
+            isMoved = false;
+            while (true) {
+                while (j>-1 && !isPosionHasNumber(i,j))
+                    j--;
+                if (j < 0)
+                    break;
+                if (j < k){
+                    isMoved = true;
+                    Number number = getNumber(i,j);
+                    number.isNeedMove = true;
+                    number.isNeedCombine = false;
+                    swapNumber(i*4+k,i*4+j);
+                }
+                if (k < 3 && getNumber(i,k).mScores==getNumber(i,k+1).mScores && !getNumber(i,k+1).isNeedCombine){
+                    Number numberk = getNumber(i,k);
+                    Number numberkl = getNumber(i,k+1);
+                    if(isMoved){
+                        numberkl.mBeforePosition = numberk.mBeforePosition;
+                    }else {
+                        numberkl.mBeforePosition =  i*4+k;
+                    }
+                    numberkl.mCurPosition = i*4+k+1;
+                    numberkl.isNeedMove = true;
+                    numberkl.isNeedCombine = true;
+                    numberkl.mScores <<=1;
+                    numberk.reset();
+                    numberk.mCurPosition = numberk.mBeforePosition = i*4+k;
+                } else{
+                    k--;
+                }
+                j--;
+            }
+        }
+    }
+    public void upKeyDealAlgorithm(){
+        int i, j, k;
+        boolean isMoved = false;
+        for(i=0;i<4;i++){
+            j=k=0;
+            isMoved = false;
+            while (true) {
+                while (j<4 && !isPosionHasNumber(j,i))
+                    j++;
+                if (j > 3)
+                    break;
+                if (j > k){
+                    isMoved = true;
+                    Number number = getNumber(j,i);
+                    number.isNeedMove = true;
+                    number.isNeedCombine = false;
+                    swapNumber(k*4+i,j*4+i);
+                }
+                if (k > 0 && getNumber(k,i).mScores==getNumber(k-1,i).mScores && !getNumber(k-1,i).isNeedCombine){
+                    Number numberk = getNumber(k,i);
+                    Number numberkl = getNumber(k-1,i);
+                    if(isMoved){
+                        numberkl.mBeforePosition = numberk.mBeforePosition;
+                    }else {
+                        numberkl.mBeforePosition =  k*4+i;
+                    }
+                    numberkl.mCurPosition = (k-1)*4+i;
+                    numberkl.isNeedMove = true;
+                    numberkl.isNeedCombine = true;
+                    numberkl.mScores <<=1;
+                    numberk.reset();
+                    numberk.mCurPosition = numberk.mBeforePosition = k*4+i;
+                } else{
+                    k++;
+                }
+                j++;
+            }
+        }
+    }
+    public void downKeyDealAlgorithm(){
+        int i, j, k;
+        boolean isMoved = false;
+        for(i=0;i<4;i++){
+            j=k=3;
+            isMoved = false;
+            while (true) {
+                while (j>-1 && !isPosionHasNumber(j,i))
+                    j--;
+                if (j < 0)
+                    break;
+                if (j < k){
+                    isMoved = true;
+                    Number number = getNumber(j,i);
+                    number.isNeedMove = true;
+                    number.isNeedCombine = false;
+                    swapNumber(k*4+i,j*4+i);
+                }
+                if (k < 3 && getNumber(k,i).mScores==getNumber(k+1,i).mScores && !getNumber(k+1,i).isNeedCombine){
+                    Number numberk = getNumber(k,i);
+                    Number numberkl = getNumber(k+1,i);
+                    if(isMoved){
+                        numberkl.mBeforePosition = numberk.mBeforePosition;
+                    }else {
+                        numberkl.mBeforePosition =  k*4+i;
+                    }
+                    numberkl.mCurPosition = (k+1)*4+i;
+                    numberkl.isNeedMove = true;
+                    numberkl.isNeedCombine = true;
+                    numberkl.mScores <<=1;
+                    numberk.reset();
+                    numberk.mCurPosition = numberk.mBeforePosition = k*4+i;
+                } else{
+                    k--;
+                }
+                j--;
+            }
+        }
+    }
+    public boolean checkGameOver(){
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < 4; j++)
+            {
+                if (j != 3 && getNumber(i,j).mScores == getNumber(i,j+1).mScores)
+                    return false;
+                if (i != 3 && getNumber(i,j).mScores == getNumber(i+1,j).mScores)
+                    return false;
+            }
+        }
+        return true;
+    }
+    public void checkGameWin(int curScore){
+        if(curScore==2048){
+            if(mListener!=null){
+                mListener.onGameVictory();
+            }
+        }
+    }
 }
