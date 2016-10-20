@@ -26,16 +26,20 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         switch (keyCode){
             case KeyEvent.KEYCODE_DPAD_UP:{
-                mGSVH.upKeyUpdate();
+                mCanvas = mHolder.lockCanvas();
+                mGSVH.upKeyUpdate(mCanvas,mPaint);
+                mHolder.unlockCanvasAndPost(mCanvas);
                 return true;
             }
             case KeyEvent.KEYCODE_DPAD_DOWN:{
-                mGSVH.downKeyUpdate();
+                mCanvas = mHolder.lockCanvas();
+                mGSVH.downKeyUpdate(mCanvas,mPaint);
+                mHolder.unlockCanvasAndPost(mCanvas);
                 return true;
             }
             case KeyEvent.KEYCODE_DPAD_LEFT:{
                 Log.d(TAG,"KEYCODE_DPAD_LEFT");
-                mGSVH.leftKeyUpdate();
+                mGSVH.leftKeyUpdate(mHolder,mPaint);
                 doDraw();
                 return true;
             }
@@ -65,6 +69,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         Game2048StaticControl.gameNumberViewLength = Game2048StaticControl.gameSurfaceLength/31*6;
         Game2048StaticControl.initGameNumberViewPosition();
         mGSVH = new GameSurfaceViewHelper();
+        mGSVH.init();
         doDraw();
     }
 

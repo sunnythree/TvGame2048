@@ -12,18 +12,6 @@ public class Numbers {
             }
         }
     }
-    public void setScroes(int x,int y,int scores){
-        mNumbers[x][y].mScores = scores;
-    }
-    public int getScrores(int x,int y){
-        return mNumbers[x][y].mScores;
-    }
-    public boolean isPosionHasNumber(int x,int y){
-        return mNumbers[x][y].mScores>0;
-    }
-    public Number[][] getmNumbers(){
-        return mNumbers;
-    }
     public Number getNumber(int x,int y){
         return mNumbers[x][y];
     }
@@ -53,14 +41,13 @@ public class Numbers {
         }
         return -1;
     }
-    public float getLeft(int x,int y){
-        return mNumbers[x][y].px;
-    }
-    public float getTop(int x,int y){
-        return mNumbers[x][y].py;
-    }
-    public void setPosition(int x,int y,float px,float py){
-        mNumbers[x][y].px = px;
-        mNumbers[x][y].py = py;
+    public void swapNumber(int position1,int position2){
+        mNumbers[position1/4][position1%4].mCurPosition = position2;
+        mNumbers[position1/4][position1%4].mBeforePosition = position1;
+        mNumbers[position2/4][position2%4].mCurPosition = position1;
+        mNumbers[position2/4][position2%4].mBeforePosition = position2;
+        Number tem = mNumbers[position1/4][position1%4];
+        mNumbers[position1/4][position1%4] = mNumbers[position2/4][position2%4];
+        mNumbers[position2/4][position2%4] = tem;
     }
 }
