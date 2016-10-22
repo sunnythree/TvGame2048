@@ -1,6 +1,7 @@
 package com.jinwei.tvgame2048.presenter;
 
 import android.content.Context;
+import android.os.Handler;
 import android.util.Log;
 import android.view.SurfaceView;
 
@@ -17,8 +18,8 @@ public class SurfaceViewPresenter {
     public SurfaceViewPresenter(Context context){
 
     }
-    public void initSurfaceView(SurfaceView surfaceView){
+    public void initSurfaceView(SurfaceView surfaceView, Handler handler){
         mSurfaceView = (GameSurfaceView) surfaceView;
-        mSurfaceView.init();
+        mSurfaceView.init(handler);
     }
 }

@@ -2,6 +2,7 @@ package com.jinwei.tvgame2048.presenter;
 
 import android.content.Context;
 import android.graphics.Point;
+import android.os.Handler;
 import android.view.SurfaceView;
 import android.view.WindowManager;
 
@@ -18,13 +19,15 @@ public class MainPresenter {
         mContext = context;
         mSurfaceViewPresenter = new SurfaceViewPresenter(context);
     }
-    public void initGame(SurfaceView surfaceView){
+    public void initGame(SurfaceView surfaceView,Handler handler){
         WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
         Point point=new Point();
         wm.getDefaultDisplay().getSize(point);
         Game2048StaticControl.gameUIWidth = point.x;
         Game2048StaticControl.gameUIHeight = point.y;
-        mSurfaceViewPresenter.initSurfaceView(surfaceView);
+        Game2048StaticControl.gameHistoryHighestScores = 0;
+        Game2048StaticControl.gameCurrentScores = 0;
+        mSurfaceViewPresenter.initSurfaceView(surfaceView,handler);
     }
 
 }

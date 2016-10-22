@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -20,6 +21,7 @@ import com.jinwei.tvgame2048.model.Game2048StaticControl;
 public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callback,Game2048Algorithm.GameResultListener{
     private final String TAG = "GameSurfaceView";
     GameSurfaceViewHelper mGSVH ;
+    Handler mHandler;
 
     @Override
     public void onGameOver() {
@@ -71,7 +73,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         Game2048StaticControl.gameSurfaceViewPadding = Game2048StaticControl.gameSurfaceLength/31*2;
         Game2048StaticControl.gameNumberViewLength = Game2048StaticControl.gameSurfaceLength/31*6;
         Game2048StaticControl.initGameNumberViewPosition();
-        mGSVH = new GameSurfaceViewHelper(holder);
+        mGSVH = new GameSurfaceViewHelper(holder,mHandler);
         mGSVH.init();
     }
 
@@ -83,8 +85,10 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
         Log.d(TAG,"surfaceDestroyed");
+        mGSVH.exit();
     }
-    public void init(){
+    public void init(Handler handler){
+        mHandler = handler;
         getHolder().addCallback(this);
     }
     public void registListener(){

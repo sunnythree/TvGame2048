@@ -4,11 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.jinwei.tvgame2048.MainActivity">
-
-    <com.jinwei.tvgame2048.ui.GameSurfaceView
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="90dp"
-        android:id="@+id/game_surface_view"
-        android:layout_width="450dp"
-        android:layout_height="450dp" />
+    <fragment
+        android:id="@+id/main_fragment"
+        android:name="com.jinwei.tvgame2048.ui.MainFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </RelativeLayout>

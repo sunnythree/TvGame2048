@@ -27,11 +27,13 @@ public class GameSurfaceViewHelper {
     SurfaceHolder mHolder;
     DrawTools mDrawTools;
     Paint mPaint;
-    public GameSurfaceViewHelper(SurfaceHolder holder){
+    Handler mHandler;
+    public GameSurfaceViewHelper(SurfaceHolder holder,Handler handler){
         mHolder = holder;
+        mHandler = handler;
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
-        mGAM = new Game2048Algorithm();
+        mGAM = new Game2048Algorithm(mHandler);
         mDrawTools = new DrawTools(mGAM);
         mHandlerThread = new HandlerThread("Game2049Animation");
         mHandlerThread.start();
@@ -41,7 +43,7 @@ public class GameSurfaceViewHelper {
                 switch (msg.what){
                     case Game2048StaticControl.GENERATE_NUMBER:{
                         int position  = mGAM.setOneRandomNumberInRandomPosition();
-                        //generateRandomNumberAnimation(position);
+                        generateRandomNumberAnimation(position);
                         doDrawGameSurface();
                         break;
                     }
@@ -90,6 +92,9 @@ public class GameSurfaceViewHelper {
         mGAM.initTowNumbers();
         doDrawGameSurface();
     }
+    public void exit(){
+        mHandlerThread.quitSafely();
+    }
     public void registListener(GameSurfaceView surfaceView){
         mGAM.setListener(surfaceView);
     }
@@ -103,14 +108,14 @@ public class GameSurfaceViewHelper {
 
     public void startAnimation(SurfaceHolder holder,Paint paint,int direct){
         int count = 0;
-        while (count++<10) {
+        while (count++<Game2048StaticControl.ANIMATION_MOVE_STEP) {
             Canvas canvas = holder.lockCanvas();
             mDrawTools.initSurfaceBg(canvas, paint);
             mDrawTools.drawSurfaceMap(canvas, paint);
             mDrawTools.drawSurfaceMapAndNumbersWhoIsNeedCombine(canvas,paint);
             for (int i = 0; i < 4; i++) {
                 for (int j = 0; j < 4; j++) {
-                    RectF rectF = mGAM.aniInsertValue(i, j, count, 10,direct);
+                    RectF rectF = mGAM.aniInsertValue(i, j, count, Game2048StaticControl.ANIMATION_MOVE_STEP,direct);
                     if(rectF != null && mGAM.isPosionHasNumber(i,j) && mGAM.getNumber(i,j).isNeedMove){
                         mDrawTools.drawNumberByRectF(i,j,canvas,paint,rectF);
                     }
@@ -122,36 +127,36 @@ public class GameSurfaceViewHelper {
 
     private void generateRandomNumberAnimation(int position){
         Canvas canvas = mHolder.lockCanvas();
-        int count = 0;
         RectF numberRectF = Game2048StaticControl.GameNumberViewPosition[position/4][position%4];
         RectF rectF = new RectF();
-        float difPixel = (numberRectF.right - numberRectF.left-100)/2;
-        float step = difPixel/Game2048StaticControl.ANIMATION_STEP;
-        while (count++<Game2048StaticControl.ANIMATION_STEP) {
+        float difPixel = (Game2048StaticControl.gameNumberViewLength-10)/2;
+        float step = difPixel/Game2048StaticControl.ANIMATION_GENERATE_STEP;
+        int count = 0;
+        while (count++<Game2048StaticControl.ANIMATION_GENERATE_STEP) {
             DrawTools.initSurfaceBg(canvas,mPaint);
             mDrawTools.drawSurfaceMap(canvas,mPaint);
             mDrawTools.drawSurfaceNumbers(canvas,mPaint);
-            rectF.set(numberRectF.left+difPixel-count*step,numberRectF.right-difPixel+count*step,
-                    numberRectF.top+difPixel-count*step,numberRectF.bottom-difPixel+count*step);
+            rectF.set(numberRectF.left+difPixel-count*step,numberRectF.top+difPixel-count*step,
+                    numberRectF.right-difPixel+count*step, numberRectF.bottom-difPixel+count*step);
             mDrawTools.drawNumberByRectF(position/4,position%4,canvas,mPaint,rectF);
         }
         mHolder.unlockCanvasAndPost(canvas);
     }
 
     public void upKeyUpdate(){
-        Log.d(TAG,"up key");
+        //Log.d(TAG,"up key");
         mAniHander.sendEmptyMessage(Game2048StaticControl.DIRECT_UP);
     }
     public void downKeyUpdate(){
-        Log.d(TAG,"down key");
+        //Log.d(TAG,"down key");
         mAniHander.sendEmptyMessage(Game2048StaticControl.DIRECT_DOWN);
     }
     public void leftKeyUpdate(){
-        Log.d(TAG,"left key");
+        //Log.d(TAG,"left key");
         mAniHander.sendEmptyMessage(Game2048StaticControl.DIRECT_LEFT);
     }
     public void rightKeyUpdate(){
-        Log.d(TAG,"right key");
+        //Log.d(TAG,"right key");
         mAniHander.sendEmptyMessage(Game2048StaticControl.DIRECT_RIGHT);
     }
 }

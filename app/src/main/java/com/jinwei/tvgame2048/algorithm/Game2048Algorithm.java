@@ -1,6 +1,7 @@
 package com.jinwei.tvgame2048.algorithm;
 
 import android.graphics.RectF;
+import android.os.Handler;
 import android.util.Log;
 
 import com.jinwei.tvgame2048.model.Game2048StaticControl;
@@ -19,9 +20,11 @@ public class Game2048Algorithm {
     }
     private Numbers mNumbers;
     GameResultListener mListener;
+    Handler mHandler;
     private final String TAG = "Game2048Algorithm";
-    public Game2048Algorithm(){
+    public Game2048Algorithm(Handler handler){
         mNumbers = new Numbers();
+        mHandler = handler;
     }
     public static int getRandom2Or4(){
         Random random =new Random();
@@ -178,6 +181,7 @@ public class Game2048Algorithm {
                     numberkl.isNeedMove = true;
                     numberkl.isNeedCombine = true;
                     numberkl.mScores <<=1;
+                    updateCurScoresAndHistoryScores(numberkl.mScores);
                     numberk.reset();
                     numberk.mCurPosition = numberk.mBeforePosition = i*4+k;
                 } else{
@@ -222,6 +226,7 @@ public class Game2048Algorithm {
                     numberkl.isNeedMove = true;
                     numberkl.isNeedCombine = true;
                     numberkl.mScores <<=1;
+                    updateCurScoresAndHistoryScores(numberkl.mScores);
                     numberk.reset();
                     numberk.mCurPosition = numberk.mBeforePosition = i*4+k;
                 } else{
@@ -265,6 +270,7 @@ public class Game2048Algorithm {
                     numberkl.isNeedMove = true;
                     numberkl.isNeedCombine = true;
                     numberkl.mScores <<=1;
+                    updateCurScoresAndHistoryScores(numberkl.mScores);
                     numberk.reset();
                     numberk.mCurPosition = numberk.mBeforePosition = k*4+i;
                 } else{
@@ -308,6 +314,7 @@ public class Game2048Algorithm {
                     numberkl.isNeedMove = true;
                     numberkl.isNeedCombine = true;
                     numberkl.mScores <<=1;
+                    updateCurScoresAndHistoryScores(numberkl.mScores);
                     numberk.reset();
                     numberk.mCurPosition = numberk.mBeforePosition = k*4+i;
                 } else{
@@ -337,5 +344,12 @@ public class Game2048Algorithm {
                 mListener.onGameVictory();
             }
         }
+    }
+    private void updateCurScoresAndHistoryScores(int stepScores){
+        Game2048StaticControl.gameCurrentScores += stepScores;
+        if(Game2048StaticControl.gameHistoryHighestScores<Game2048StaticControl.gameCurrentScores){
+            Game2048StaticControl.gameHistoryHighestScores=Game2048StaticControl.gameCurrentScores;
+        }
+        mHandler.sendEmptyMessage(Game2048StaticControl.UPDATE_CURRENT_HISTORY_SCORES);
     }
 }

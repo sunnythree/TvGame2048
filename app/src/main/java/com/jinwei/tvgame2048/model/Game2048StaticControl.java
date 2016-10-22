@@ -32,7 +32,6 @@ public class Game2048StaticControl {
 
         for(int i=0;i<4;i++){
             for(int j=0;j<4;j++){
-                Log.d(TAG,"i="+i+";j="+j);
                 GameNumberViewPosition[i][j] = new RectF(p+j*g+j*l,p+i*g+i*l,p+j*g+j*l+l,p+i*g+i*l+l);
             }
         }
@@ -59,5 +58,13 @@ public class Game2048StaticControl {
     public static final int DIRECT_RIGHT = 3;
     public static final int GENERATE_NUMBER = 4;
     //animation step
-    public static final int ANIMATION_STEP = 20;
+    public static final int ANIMATION_MOVE_STEP = 10;
+    public static final int ANIMATION_GENERATE_STEP = 10;
+
+    //game scores and history highest scores
+    public static int gameCurrentScores = 0;
+    public static int gameHistoryHighestScores = 0;
+
+    //update scores and history highest scores
+    public static final int UPDATE_CURRENT_HISTORY_SCORES = 0;
 }

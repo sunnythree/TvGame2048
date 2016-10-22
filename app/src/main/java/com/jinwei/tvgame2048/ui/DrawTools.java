@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.util.Log;
 
 import com.jinwei.tvgame2048.algorithm.Game2048Algorithm;
 import com.jinwei.tvgame2048.model.Game2048StaticControl;
@@ -12,6 +13,7 @@ import com.jinwei.tvgame2048.model.Game2048StaticControl;
  * Created by Jinwei on 2016/10/22.
  */
 public class DrawTools {
+    private final String TAG = "DrawTools";
     Game2048Algorithm mGAM;
     public DrawTools(Game2048Algorithm game2048Algorithm){
         mGAM =game2048Algorithm;
@@ -42,99 +44,96 @@ public class DrawTools {
         }
     }
     public void drawNumber(int x,int y,Canvas canvas, Paint paint){
-        paint.setColor(Game2048StaticControl.gameNumberColors[mGAM.getBitCount(mGAM.getNumber(x, y).mScores)]);
+        int scores = mGAM.getNumber(x,y).mScores;
+        //1.draw rect
+        paint.setColor(Game2048StaticControl.gameNumberColors[mGAM.getBitCount(scores)]);
         canvas.drawRoundRect(Game2048StaticControl.GameNumberViewPosition[x][y],
                 Game2048StaticControl.gameRadiumOfNumberViews,
                 Game2048StaticControl.gameRadiumOfNumberViews, paint);
-        int textSize = 100;
-        int numberCount = 1;
-        if(mGAM.getNumber(x, y).mScores>9999){
-            textSize = 20;
-            numberCount = 5;
-        }else if(mGAM.getNumber(x, y).mScores>999){
-            textSize = 40;
-            numberCount = 4;
-        }else if(mGAM.getNumber(x, y).mScores>99){
-            textSize = 60;
-            numberCount = 3;
-        }else if(mGAM.getNumber(x, y).mScores>9){
-            textSize = 80;
-            numberCount = 2;
+        //2.draw text
+        //2.1 set color
+        if(scores>16){
+            paint.setColor(Color.WHITE);
         }else {
-            textSize = 100;
-            numberCount = 1;
+            paint.setColor(Color.RED);
         }
+        //2.2 set text size
+        String text = String.valueOf(scores);
+        float textSize = 100f;
+        int numberCount = 1;
+        while(scores/10>0){
+            scores = scores/10;
+            numberCount++;
+        }
+        float lenght = Game2048StaticControl.gameNumberViewLength/3*2;
+        textSize = Math.min(lenght/numberCount*2,lenght);
         paint.setTextSize(textSize);
-        paint.setColor(Color.RED);
-        canvas.drawText(String.valueOf(mGAM.getNumber(x, y).mScores),
-                Game2048StaticControl.GameNumberViewPosition[x][y].left + Game2048StaticControl.gameNumberViewLength / 2 - numberCount*textSize/4,
+
+        canvas.drawText(text,
+                Game2048StaticControl.GameNumberViewPosition[x][y].left + Game2048StaticControl.gameNumberViewLength / 2 - numberCount*textSize/4-6,
                 Game2048StaticControl.GameNumberViewPosition[x][y].top + Game2048StaticControl.gameNumberViewLength / 2 + textSize/3, paint);
 
     }
     public void drawNumberWithHalfValue(int x,int y,Canvas canvas, Paint paint){
-        paint.setColor(Game2048StaticControl.gameNumberColors[mGAM.getBitCount(mGAM.getNumber(x, y).mScores/2)]);
+        int scores = mGAM.getNumber(x,y).mScores/2;
+        //1.draw rect
+        paint.setColor(Game2048StaticControl.gameNumberColors[mGAM.getBitCount(scores)]);
         canvas.drawRoundRect(Game2048StaticControl.GameNumberViewPosition[x][y],
                 Game2048StaticControl.gameRadiumOfNumberViews,
                 Game2048StaticControl.gameRadiumOfNumberViews, paint);
-        int textSize = 100;
-        int numberCount = 1;
-        if(mGAM.getNumber(x, y).mScores>9999){
-            textSize = 20;
-            numberCount = 5;
-        }else if(mGAM.getNumber(x, y).mScores>999){
-            textSize = 40;
-            numberCount = 4;
-        }else if(mGAM.getNumber(x, y).mScores>99){
-            textSize = 60;
-            numberCount = 3;
-        }else if(mGAM.getNumber(x, y).mScores>9){
-            textSize = 80;
-            numberCount = 2;
+        //2.draw text
+        //2.1set color
+        if(scores>16){
+            paint.setColor(Color.WHITE);
         }else {
-            textSize = 100;
-            numberCount = 1;
+            paint.setColor(Color.RED);
         }
+        //2.2set text size
+        String text = String.valueOf(scores);
+        int numberCount = 1;
+        float textSize = 100f;
+        while(scores/10>0){
+            scores = scores/10;
+            numberCount++;
+        }
+        float lenght = Game2048StaticControl.gameNumberViewLength/3*2;
+        textSize = Math.min(lenght/numberCount*2,lenght);
         paint.setTextSize(textSize);
-        paint.setColor(Color.RED);
-        canvas.drawText(String.valueOf(mGAM.getNumber(x, y).mScores/2),
-                Game2048StaticControl.GameNumberViewPosition[x][y].left + Game2048StaticControl.gameNumberViewLength / 2 - numberCount*textSize/4,
+        canvas.drawText(text,
+                Game2048StaticControl.GameNumberViewPosition[x][y].left + Game2048StaticControl.gameNumberViewLength / 2 - numberCount*textSize/4-6,
                 Game2048StaticControl.GameNumberViewPosition[x][y].top + Game2048StaticControl.gameNumberViewLength / 2 + textSize/3, paint);
 
     }
     public void drawNumberByRectF(int x,int y,Canvas canvas, Paint paint,RectF rectF) {
+        int scores = mGAM.getNumber(x,y).mScores;
+        // Log.d(TAG,rectF.toString());
+        //1.draw rect
         if(mGAM.getNumber(x, y).isNeedCombine){
-            paint.setColor(Game2048StaticControl.gameNumberColors[mGAM.getBitCount(mGAM.getNumber(x, y).mScores/2)]);
+            scores = scores/2;
+            paint.setColor(Game2048StaticControl.gameNumberColors[mGAM.getBitCount(scores)]);
         }else{
-            paint.setColor(Game2048StaticControl.gameNumberColors[mGAM.getBitCount(mGAM.getNumber(x, y).mScores)]);
+            paint.setColor(Game2048StaticControl.gameNumberColors[mGAM.getBitCount(scores)]);
         }
         canvas.drawRoundRect(rectF,
                 Game2048StaticControl.gameRadiumOfNumberViews,
                 Game2048StaticControl.gameRadiumOfNumberViews, paint);
-        paint.setColor(Color.RED);
-        String text  = null;
-        if(mGAM.getNumber(x, y).isNeedCombine){
-            text = String.valueOf(mGAM.getNumber(x, y).mScores/2);
-        }else{
-            text = String.valueOf(mGAM.getNumber(x, y).mScores);
-        }
-        int textSize = 100;
-        int numberCount = 1;
-        if(mGAM.getNumber(x, y).mScores>9999){
-            textSize = 20;
-            numberCount = 5;
-        }else if(mGAM.getNumber(x, y).mScores>999){
-            textSize = 40;
-            numberCount = 4;
-        }else if(mGAM.getNumber(x, y).mScores>99){
-            textSize = 60;
-            numberCount = 3;
-        }else if(mGAM.getNumber(x, y).mScores>9){
-            textSize = 80;
-            numberCount = 2;
+        //2.draw text
+        //2.1 set color
+        if(scores>16){
+            paint.setColor(Color.WHITE);
         }else {
-            textSize = 100;
-            numberCount = 1;
+            paint.setColor(Color.RED);
         }
+        //2.2 set text size
+        String text = String.valueOf(scores);
+        int numberCount = 1;
+        float textSize = 100f;
+        while(scores/10>0){
+            scores = scores/10;
+            numberCount++;
+        }
+        float lenght = (rectF.right-rectF.left)/3*2;
+        textSize = Math.min(lenght/numberCount*2,lenght);
         paint.setTextSize(textSize);
         canvas.drawText(text,
                 (rectF.left + rectF.right)/2-numberCount*textSize/4,
