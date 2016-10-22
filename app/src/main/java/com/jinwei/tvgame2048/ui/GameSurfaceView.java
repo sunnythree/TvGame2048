@@ -20,9 +20,6 @@ import com.jinwei.tvgame2048.model.Game2048StaticControl;
 public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callback,Game2048Algorithm.GameResultListener{
     private final String TAG = "GameSurfaceView";
     GameSurfaceViewHelper mGSVH ;
-    Canvas mCanvas;
-    SurfaceHolder mHolder;
-    Paint mPaint;
 
     @Override
     public void onGameOver() {
@@ -38,19 +35,19 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         switch (keyCode){
             case KeyEvent.KEYCODE_DPAD_UP:{
-                mGSVH.upKeyUpdate(mHolder,mPaint);
+                mGSVH.upKeyUpdate();
                 return true;
             }
             case KeyEvent.KEYCODE_DPAD_DOWN:{
-                mGSVH.downKeyUpdate(mHolder,mPaint);
+                mGSVH.downKeyUpdate();
                 return true;
             }
             case KeyEvent.KEYCODE_DPAD_LEFT:{
-                mGSVH.leftKeyUpdate(mHolder,mPaint);
+                mGSVH.leftKeyUpdate();
                 return true;
             }
             case KeyEvent.KEYCODE_DPAD_RIGHT:{
-                mGSVH.rightKeyUpdate(mHolder,mPaint);
+                mGSVH.rightKeyUpdate();
                 return true;
             }
         }
@@ -74,9 +71,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         Game2048StaticControl.gameSurfaceViewPadding = Game2048StaticControl.gameSurfaceLength/31*2;
         Game2048StaticControl.gameNumberViewLength = Game2048StaticControl.gameSurfaceLength/31*6;
         Game2048StaticControl.initGameNumberViewPosition();
-        mGSVH = new GameSurfaceViewHelper();
+        mGSVH = new GameSurfaceViewHelper(holder);
         mGSVH.init();
-        doDraw();
     }
 
     @Override
@@ -87,14 +83,6 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
         Log.d(TAG,"surfaceDestroyed");
-    }
-    private void doDraw(){
-        mHolder = getHolder();
-        mPaint = new Paint();
-        mPaint.setAntiAlias(true);
-        mCanvas = mHolder.lockCanvas();
-        mGSVH.doDraw(mCanvas,mPaint);
-        mHolder.unlockCanvasAndPost(mCanvas);
     }
     public void init(){
         getHolder().addCallback(this);

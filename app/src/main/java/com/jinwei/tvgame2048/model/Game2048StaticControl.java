@@ -51,4 +51,13 @@ public class Game2048StaticControl {
             Color.rgb(234, 185, 19)			//2048
     };
     public static int gameSurfacceViewGbColor = Color.rgb(187,173,160);
+
+    //animation
+    public static final int DIRECT_UP = 0;
+    public static final int DIRECT_DOWN = 1;
+    public static final int DIRECT_LEFT = 2;
+    public static final int DIRECT_RIGHT = 3;
+    public static final int GENERATE_NUMBER = 4;
+    //animation step
+    public static final int ANIMATION_STEP = 20;
 }

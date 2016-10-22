@@ -39,7 +39,7 @@ public class Game2048Algorithm {
     public void setListener(GameResultListener listener){
         mListener = listener;
     }
-    public void setOneRandomNumberInRandomPosition(){
+    public int  setOneRandomNumberInRandomPosition(){
         int scores = Game2048Algorithm.getRandom2Or4();
         int blankCount = mNumbers.getBlankCount();
         int blankTh = 0;
@@ -50,19 +50,20 @@ public class Game2048Algorithm {
                     mListener.onGameOver();
                 }
             }
-            return;
+            return -1;
         }else{
             blankTh = Game2048Algorithm.getRandomPosition(blankCount);
         }
         int position = mNumbers.getPositonFromBlankCountTh(blankTh);
         if (position<0){
             Log.d(TAG,"getPositonFromBlankCountTh return error");
-            return;
+            return -1;
         }
         Number num = mNumbers.getNumber(position/4,position%4);
         num.mScores = scores;
         num.mBeforePosition = num.mCurPosition = position;
         num.isNeedCombine = num.isNeedMove = false;
+        return position;
     }
     public void initTowNumbers(){
         setOneRandomNumberInRandomPosition();
@@ -144,8 +145,9 @@ public class Game2048Algorithm {
         mNumbers.swapNumber(position1,position2);
     }
 
-    public void leftKeyDealAlgorithm(){
+    public boolean leftKeyDealAlgorithm(){
         int i, j, k;
+        boolean isAnimation = false;
         boolean isMoved = false;
         for(i=0;i<4;i++){
             j=k=0;
@@ -157,12 +159,14 @@ public class Game2048Algorithm {
                     break;
                 if (j > k){
                     isMoved = true;
+                    isAnimation = true;
                     Number number = getNumber(i,j);
                     number.isNeedMove = true;
                     number.isNeedCombine = false;
                     swapNumber(i*4+k,i*4+j);
                 }
                 if (k > 0 && getNumber(i,k).mScores==getNumber(i,k-1).mScores && !getNumber(i,k-1).isNeedCombine){
+                    isAnimation = true;
                     Number numberk = getNumber(i,k);
                     Number numberkl = getNumber(i,k-1);
                     if(isMoved){
@@ -182,11 +186,13 @@ public class Game2048Algorithm {
                 j++;
             }
         }
+        return isAnimation;
     }
 
-    public void rightKeyDealAlgorithm(){
+    public boolean rightKeyDealAlgorithm(){
         int i, j, k;
         boolean isMoved = false;
+        boolean isAnimation = false;
         for(i=0;i<4;i++){
             j=k=3;
             isMoved = false;
@@ -197,12 +203,14 @@ public class Game2048Algorithm {
                     break;
                 if (j < k){
                     isMoved = true;
+                    isAnimation = true;
                     Number number = getNumber(i,j);
                     number.isNeedMove = true;
                     number.isNeedCombine = false;
                     swapNumber(i*4+k,i*4+j);
                 }
                 if (k < 3 && getNumber(i,k).mScores==getNumber(i,k+1).mScores && !getNumber(i,k+1).isNeedCombine){
+                    isAnimation = true;
                     Number numberk = getNumber(i,k);
                     Number numberkl = getNumber(i,k+1);
                     if(isMoved){
@@ -222,10 +230,12 @@ public class Game2048Algorithm {
                 j--;
             }
         }
+        return isAnimation;
     }
-    public void upKeyDealAlgorithm(){
+    public boolean upKeyDealAlgorithm(){
         int i, j, k;
         boolean isMoved = false;
+        boolean isAnimation = false;
         for(i=0;i<4;i++){
             j=k=0;
             isMoved = false;
@@ -236,12 +246,14 @@ public class Game2048Algorithm {
                     break;
                 if (j > k){
                     isMoved = true;
+                    isAnimation = true;
                     Number number = getNumber(j,i);
                     number.isNeedMove = true;
                     number.isNeedCombine = false;
                     swapNumber(k*4+i,j*4+i);
                 }
                 if (k > 0 && getNumber(k,i).mScores==getNumber(k-1,i).mScores && !getNumber(k-1,i).isNeedCombine){
+                    isAnimation = true;
                     Number numberk = getNumber(k,i);
                     Number numberkl = getNumber(k-1,i);
                     if(isMoved){
@@ -261,10 +273,12 @@ public class Game2048Algorithm {
                 j++;
             }
         }
+        return isAnimation;
     }
-    public void downKeyDealAlgorithm(){
+    public boolean downKeyDealAlgorithm(){
         int i, j, k;
         boolean isMoved = false;
+        boolean isAnimation =  false;
         for(i=0;i<4;i++){
             j=k=3;
             isMoved = false;
@@ -275,12 +289,14 @@ public class Game2048Algorithm {
                     break;
                 if (j < k){
                     isMoved = true;
+                    isAnimation = true;
                     Number number = getNumber(j,i);
                     number.isNeedMove = true;
                     number.isNeedCombine = false;
                     swapNumber(k*4+i,j*4+i);
                 }
                 if (k < 3 && getNumber(k,i).mScores==getNumber(k+1,i).mScores && !getNumber(k+1,i).isNeedCombine){
+                    isAnimation = true;
                     Number numberk = getNumber(k,i);
                     Number numberkl = getNumber(k+1,i);
                     if(isMoved){
@@ -300,6 +316,7 @@ public class Game2048Algorithm {
                 j--;
             }
         }
+        return isAnimation;
     }
     public boolean checkGameOver(){
         for (int i = 0; i < 4; i++)
