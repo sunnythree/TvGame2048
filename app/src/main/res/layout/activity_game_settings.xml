@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.jinwei.tvgame2048.ui.GameSettingsActivity">
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="#878787"
+        android:layout_alignParentRight="true"
+        android:layout_width="410dp"
+        android:layout_height="match_parent"
+        android:weightSum="1">
+
+        <Switch
+            android:id="@+id/toggle_button_sound"
+            android:background="@drawable/setting_bg"
+            android:text="Sound"
+            android:thumb="@drawable/thumb"
+            android:thumbTextPadding="15dp"
+            android:track="@drawable/track"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:paddingLeft="100dp"
+            android:paddingRight="100dp"
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+        <Button
+            android:id="@+id/button_back"
+            android:background="@drawable/setting_bg"
+            android:text="go back"
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+        <Button
+            android:id="@+id/button_restart"
+            android:background="@drawable/setting_bg"
+            android:text="restart"
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+        <Button
+            android:id="@+id/button_exit"
+            android:background="@drawable/setting_bg"
+            android:text="exit"
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+    </LinearLayout>
+</RelativeLayout>

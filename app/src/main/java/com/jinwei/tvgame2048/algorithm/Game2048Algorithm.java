@@ -72,8 +72,8 @@ public class Game2048Algorithm {
         setOneRandomNumberInRandomPosition();
         setOneRandomNumberInRandomPosition();
     }
-    public Numbers getmNumbers(){
-        return mNumbers;
+    public Number[][] getmNumbers(){
+        return mNumbers.getNumbers();
     }
     public Number getNumber(int x, int y){
         return mNumbers.getNumber(x,y);
@@ -151,6 +151,18 @@ public class Game2048Algorithm {
             for (int j = 0; j < Game2048StaticControl.gamePlayMode; j++) {
                 Number number = getNumber(i,j);
                 number.isNeedCombine = number.isNeedMove = false;
+            }
+        }
+    }
+    public void resetCurrentNumbers(Number [][] numbers){
+        for (int i = 0; i < Game2048StaticControl.gamePlayMode; i++) {
+            for (int j = 0; j < Game2048StaticControl.gamePlayMode; j++) {
+                Number number = getNumber(i,j);
+                number.mScores = numbers[i][j].mScores;
+                number.mCurPosition = numbers[i][j].mCurPosition;
+                number.mBeforePosition = numbers[i][j].mBeforePosition;
+                number.isNeedCombine = numbers[i][j].isNeedCombine;
+                number.isNeedMove = numbers[i][j].isNeedMove;
             }
         }
     }

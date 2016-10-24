@@ -15,6 +15,9 @@ public class Numbers {
     public Number getNumber(int x,int y){
         return mNumbers[x][y];
     }
+    public Number [][] getNumbers (){
+        return mNumbers;
+    }
     public int getBlankCount(){
         int count = 0;
         for(int i=0;i<Game2048StaticControl.gamePlayMode;i++){

@@ -69,8 +69,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         Log.d(TAG,"surfaceCreated");
         Game2048StaticControl.gameSurfaceLength = getWidth();//width==height
         Log.d(TAG,"Game2048StaticControl.gameSurfaceLength:"+Game2048StaticControl.gameSurfaceLength);
-        //game mode
-        Game2048StaticControl.gamePlayMode = 5;
+
         //gameGapBetweenNumberViews:gameSurfaceViewPadding:gameNumberViewLength=1:2:6
         int all=Game2048StaticControl.gamePlayMode*6+ Game2048StaticControl.gamePlayMode-1+2*2;
         Game2048StaticControl.gameGapBetweenNumberViews = Game2048StaticControl.gameSurfaceLength/all;

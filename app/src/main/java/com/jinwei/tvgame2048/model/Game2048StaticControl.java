@@ -25,6 +25,9 @@ public class Game2048StaticControl {
     public static int gameRadiumOfNumberViews = 5;
     //game mode
     public static int gamePlayMode = 4;
+    public static boolean isGoBackEnabled = false;
+    //sound
+    public static boolean isGameSoundOn = true;
     //number view position
     public static RectF[][] GameNumberViewPosition  = null;
     public static RectF[][] initGameNumberViewPosition(){

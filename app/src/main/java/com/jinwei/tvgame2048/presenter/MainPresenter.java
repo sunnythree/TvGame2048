@@ -1,8 +1,11 @@
 package com.jinwei.tvgame2048.presenter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.view.SurfaceView;
 import android.view.WindowManager;
 
