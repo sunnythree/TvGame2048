@@ -1,20 +1,23 @@
 package com.jinwei.tvgame2048.ui;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.media.SoundPool;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
 import android.util.Log;
 import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 
+import com.jinwei.tvgame2048.R;
 import com.jinwei.tvgame2048.algorithm.Game2048Algorithm;
 import com.jinwei.tvgame2048.model.Game2048StaticControl;
-import com.jinwei.tvgame2048.model.Number;
-import com.jinwei.tvgame2048.model.Numbers;
+
+import java.util.HashMap;
 
 /**
  * Created by Jinwei on 2016/10/19.
@@ -28,14 +31,19 @@ public class GameSurfaceViewHelper {
     DrawTools mDrawTools;
     Paint mPaint;
     Handler mHandler;
-    public GameSurfaceViewHelper(SurfaceHolder holder,Handler handler){
+    SoundPool mSoundPool;
+    HashMap<Integer,Integer> mSoundMap = new HashMap<>();
+    public GameSurfaceViewHelper(Context context,SurfaceHolder holder, Handler handler){
         mHolder = holder;
         mHandler = handler;
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mGAM = new Game2048Algorithm(mHandler);
         mDrawTools = new DrawTools(mGAM);
-        mHandlerThread = new HandlerThread("Game2049Animation");
+        mSoundPool = new SoundPool.Builder().build();
+        mSoundMap.put(1,mSoundPool.load(context, R.raw.move,1));
+        mSoundMap.put(2,mSoundPool.load(context, R.raw.merge,1));
+        mHandlerThread = new HandlerThread("Game2048Animation");
         mHandlerThread.start();
         mAniHander = new Handler(){
             @Override
@@ -48,38 +56,46 @@ public class GameSurfaceViewHelper {
                         break;
                     }
                     case Game2048StaticControl.DIRECT_UP:{
-                        if (mGAM.upKeyDealAlgorithm()){
+                        int ret = mGAM.upKeyDealAlgorithm();
+                        if(ret>0){
                             startAnimation(mHolder,mPaint,Game2048StaticControl.DIRECT_UP);
                             mGAM.updateNumbers();
                             doDrawGameSurface();
                             sendEmptyMessage(Game2048StaticControl.GENERATE_NUMBER);
+                            mSoundPool.play(mSoundMap.get(ret),1,1,0,0,1);
                         }
                         break;
                     }
                     case Game2048StaticControl.DIRECT_DOWN:{
-                        if (mGAM.downKeyDealAlgorithm()){
+                        int ret = mGAM.downKeyDealAlgorithm();
+                        if (ret>0){
                             startAnimation(mHolder,mPaint,Game2048StaticControl.DIRECT_DOWN);
                             mGAM.updateNumbers();
                             doDrawGameSurface();
                             sendEmptyMessage(Game2048StaticControl.GENERATE_NUMBER);
+                            mSoundPool.play(mSoundMap.get(ret),1,1,0,0,1);
                         }
                         break;
                     }
                     case Game2048StaticControl.DIRECT_LEFT:{
-                        if (mGAM.leftKeyDealAlgorithm()){
+                        int ret =  mGAM.leftKeyDealAlgorithm();
+                        if (ret>0){
                             startAnimation(mHolder,mPaint,Game2048StaticControl.DIRECT_LEFT);
                             mGAM.updateNumbers();
                             doDrawGameSurface();
                             sendEmptyMessage(Game2048StaticControl.GENERATE_NUMBER);
+                            mSoundPool.play(mSoundMap.get(ret),1,1,0,0,1);
                         }
                         break;
                     }
                     case Game2048StaticControl.DIRECT_RIGHT:{
-                        if (mGAM.rightKeyDealAlgorithm()){
+                        int ret = mGAM.rightKeyDealAlgorithm();
+                        if (ret>0){
                             startAnimation(mHolder,mPaint,Game2048StaticControl.DIRECT_RIGHT);
                             mGAM.updateNumbers();
                             doDrawGameSurface();
                             sendEmptyMessage(Game2048StaticControl.GENERATE_NUMBER);
+                            mSoundPool.play(mSoundMap.get(ret),1,1,0,0,1);
                         }
                         break;
                     }
@@ -94,6 +110,7 @@ public class GameSurfaceViewHelper {
     }
     public void exit(){
         mHandlerThread.quitSafely();
+        mSoundPool.release();
     }
     public void registListener(GameSurfaceView surfaceView){
         mGAM.setListener(surfaceView);
@@ -113,8 +130,8 @@ public class GameSurfaceViewHelper {
             mDrawTools.initSurfaceBg(canvas, paint);
             mDrawTools.drawSurfaceMap(canvas, paint);
             mDrawTools.drawSurfaceMapAndNumbersWhoIsNeedCombine(canvas,paint);
-            for (int i = 0; i < 4; i++) {
-                for (int j = 0; j < 4; j++) {
+            for (int i = 0; i < Game2048StaticControl.gamePlayMode; i++) {
+                for (int j = 0; j < Game2048StaticControl.gamePlayMode; j++) {
                     RectF rectF = mGAM.aniInsertValue(i, j, count, Game2048StaticControl.ANIMATION_MOVE_STEP,direct);
                     if(rectF != null && mGAM.isPosionHasNumber(i,j) && mGAM.getNumber(i,j).isNeedMove){
                         mDrawTools.drawNumberByRectF(i,j,canvas,paint,rectF);
@@ -127,7 +144,8 @@ public class GameSurfaceViewHelper {
 
     private void generateRandomNumberAnimation(int position){
         Canvas canvas = mHolder.lockCanvas();
-        RectF numberRectF = Game2048StaticControl.GameNumberViewPosition[position/4][position%4];
+        RectF numberRectF = Game2048StaticControl.GameNumberViewPosition[position/Game2048StaticControl.gamePlayMode]
+                [position%Game2048StaticControl.gamePlayMode];
         RectF rectF = new RectF();
         float difPixel = (Game2048StaticControl.gameNumberViewLength-10)/2;
         float step = difPixel/Game2048StaticControl.ANIMATION_GENERATE_STEP;
@@ -138,7 +156,8 @@ public class GameSurfaceViewHelper {
             mDrawTools.drawSurfaceNumbers(canvas,mPaint);
             rectF.set(numberRectF.left+difPixel-count*step,numberRectF.top+difPixel-count*step,
                     numberRectF.right-difPixel+count*step, numberRectF.bottom-difPixel+count*step);
-            mDrawTools.drawNumberByRectF(position/4,position%4,canvas,mPaint,rectF);
+            mDrawTools.drawNumberByRectF(position/Game2048StaticControl.gamePlayMode,
+                    position%Game2048StaticControl.gamePlayMode,canvas,mPaint,rectF);
         }
         mHolder.unlockCanvasAndPost(canvas);
     }

@@ -62,7 +62,7 @@ public class Game2048Algorithm {
             Log.d(TAG,"getPositonFromBlankCountTh return error");
             return -1;
         }
-        Number num = mNumbers.getNumber(position/4,position%4);
+        Number num = mNumbers.getNumber(position/Game2048StaticControl.gamePlayMode,position%Game2048StaticControl.gamePlayMode);
         num.mScores = scores;
         num.mBeforePosition = num.mCurPosition = position;
         num.isNeedCombine = num.isNeedMove = false;
@@ -101,34 +101,44 @@ public class Game2048Algorithm {
         if(number.mCurPosition ==  number.mBeforePosition){
             return null;
         }
-        float xDiffPixels = Game2048StaticControl.GameNumberViewPosition[number.mCurPosition/4][number.mCurPosition%4].left
-                -Game2048StaticControl.GameNumberViewPosition[number.mBeforePosition/4][number.mBeforePosition%4].left;
-        float yDiffPixels = Game2048StaticControl.GameNumberViewPosition[number.mCurPosition/4][number.mCurPosition%4].top
-                -Game2048StaticControl.GameNumberViewPosition[number.mBeforePosition/4][number.mBeforePosition%4].top;
+        float xDiffPixels = Game2048StaticControl.GameNumberViewPosition[number.mCurPosition/Game2048StaticControl.gamePlayMode]
+                [number.mCurPosition%Game2048StaticControl.gamePlayMode].left
+                -Game2048StaticControl.GameNumberViewPosition[number.mBeforePosition/Game2048StaticControl.gamePlayMode]
+                [number.mBeforePosition%Game2048StaticControl.gamePlayMode].left;
+        float yDiffPixels = Game2048StaticControl.GameNumberViewPosition[number.mCurPosition/Game2048StaticControl.gamePlayMode]
+                [number.mCurPosition%Game2048StaticControl.gamePlayMode].top
+                -Game2048StaticControl.GameNumberViewPosition[number.mBeforePosition/Game2048StaticControl.gamePlayMode]
+                [number.mBeforePosition%Game2048StaticControl.gamePlayMode].top;
         xDiffPixels = Math.abs(xDiffPixels);
         yDiffPixels = Math.abs(yDiffPixels);
         float xStep = xDiffPixels/insertCount;
         float yStep = yDiffPixels/insertCount;
-        float xNewPosition = Game2048StaticControl.GameNumberViewPosition[number.mCurPosition/4][number.mCurPosition%4].left;
-        float yNewPosition = Game2048StaticControl.GameNumberViewPosition[number.mCurPosition/4][number.mCurPosition%4].top;;
+        float xNewPosition = Game2048StaticControl.GameNumberViewPosition[number.mCurPosition/Game2048StaticControl.gamePlayMode]
+                [number.mCurPosition%Game2048StaticControl.gamePlayMode].left;
+        float yNewPosition = Game2048StaticControl.GameNumberViewPosition[number.mCurPosition/Game2048StaticControl.gamePlayMode]
+                [number.mCurPosition%Game2048StaticControl.gamePlayMode].top;;
         switch (direct){
             case DIRECT_UP:{
-                yNewPosition = Game2048StaticControl.GameNumberViewPosition[number.mBeforePosition/4][number.mBeforePosition%4].top
+                yNewPosition = Game2048StaticControl.GameNumberViewPosition[number.mBeforePosition/Game2048StaticControl.gamePlayMode]
+                        [number.mBeforePosition%Game2048StaticControl.gamePlayMode].top
                         - yStep*count;
                 break;
             }
             case DIRECT_DOWN:{
-                yNewPosition = Game2048StaticControl.GameNumberViewPosition[number.mBeforePosition/4][number.mBeforePosition%4].top
+                yNewPosition = Game2048StaticControl.GameNumberViewPosition[number.mBeforePosition/Game2048StaticControl.gamePlayMode]
+                        [number.mBeforePosition%Game2048StaticControl.gamePlayMode].top
                                 + yStep*count;
                 break;
             }
             case DIRECT_LEFT:{
-                xNewPosition = Game2048StaticControl.GameNumberViewPosition[number.mBeforePosition/4][number.mBeforePosition%4].left
+                xNewPosition = Game2048StaticControl.GameNumberViewPosition[number.mBeforePosition/Game2048StaticControl.gamePlayMode]
+                        [number.mBeforePosition%Game2048StaticControl.gamePlayMode].left
                         - xStep*count;
                 break;
             }
             case DIRECT_RIGHT:{
-                xNewPosition = Game2048StaticControl.GameNumberViewPosition[number.mBeforePosition/4][number.mBeforePosition%4].left
+                xNewPosition = Game2048StaticControl.GameNumberViewPosition[number.mBeforePosition/Game2048StaticControl.gamePlayMode]
+                        [number.mBeforePosition%Game2048StaticControl.gamePlayMode].left
                         + xStep*count;
                 break;
             }
@@ -137,8 +147,8 @@ public class Game2048Algorithm {
         return new RectF(xNewPosition,yNewPosition,xNewPosition+Game2048StaticControl.gameNumberViewLength,yNewPosition+Game2048StaticControl.gameNumberViewLength);
     }
     public void updateNumbers(){
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
+        for (int i = 0; i < Game2048StaticControl.gamePlayMode; i++) {
+            for (int j = 0; j < Game2048StaticControl.gamePlayMode; j++) {
                 Number number = getNumber(i,j);
                 number.isNeedCombine = number.isNeedMove = false;
             }
@@ -148,57 +158,62 @@ public class Game2048Algorithm {
         mNumbers.swapNumber(position1,position2);
     }
 
-    public boolean leftKeyDealAlgorithm(){
+    //return 0:do nothing
+    //return 1:move
+    //return 2:combine
+    public int leftKeyDealAlgorithm(){
         int i, j, k;
-        boolean isAnimation = false;
         boolean isMoved = false;
-        for(i=0;i<4;i++){
+        boolean isFinalMove = false;
+        boolean isFinalCombie = false;
+        for(i=0;i<Game2048StaticControl.gamePlayMode;i++){
             j=k=0;
             isMoved = false;
             while (true) {
-                while (j<4 && !isPosionHasNumber(i,j))
+                while (j<Game2048StaticControl.gamePlayMode && !isPosionHasNumber(i,j))
                     j++;
-                if (j > 3)
+                if (j > Game2048StaticControl.gamePlayMode-1)
                     break;
                 if (j > k){
                     isMoved = true;
-                    isAnimation = true;
+                    isFinalMove = true;
                     Number number = getNumber(i,j);
                     number.isNeedMove = true;
                     number.isNeedCombine = false;
-                    swapNumber(i*4+k,i*4+j);
+                    swapNumber(i*Game2048StaticControl.gamePlayMode+k,i*Game2048StaticControl.gamePlayMode+j);
                 }
                 if (k > 0 && getNumber(i,k).mScores==getNumber(i,k-1).mScores && !getNumber(i,k-1).isNeedCombine){
-                    isAnimation = true;
+                    isFinalCombie = true;
                     Number numberk = getNumber(i,k);
                     Number numberkl = getNumber(i,k-1);
                     if(isMoved){
                         numberkl.mBeforePosition = numberk.mBeforePosition;
                     }else {
-                        numberkl.mBeforePosition =  i*4+k;
+                        numberkl.mBeforePosition =  i*Game2048StaticControl.gamePlayMode+k;
                     }
-                    numberkl.mCurPosition = i*4+k-1;
+                    numberkl.mCurPosition = i*Game2048StaticControl.gamePlayMode+k-1;
                     numberkl.isNeedMove = true;
                     numberkl.isNeedCombine = true;
                     numberkl.mScores <<=1;
                     updateCurScoresAndHistoryScores(numberkl.mScores);
                     numberk.reset();
-                    numberk.mCurPosition = numberk.mBeforePosition = i*4+k;
+                    numberk.mCurPosition = numberk.mBeforePosition = i*Game2048StaticControl.gamePlayMode+k;
                 } else{
                     k++;
                 }
                 j++;
             }
         }
-        return isAnimation;
+        return isFinalCombie?2:(isFinalMove?1:0);
     }
 
-    public boolean rightKeyDealAlgorithm(){
+    public int rightKeyDealAlgorithm(){
         int i, j, k;
         boolean isMoved = false;
-        boolean isAnimation = false;
-        for(i=0;i<4;i++){
-            j=k=3;
+        boolean isFinalMove = false;
+        boolean isFinalCombie = false;
+        for(i=0;i<Game2048StaticControl.gamePlayMode;i++){
+            j=k=Game2048StaticControl.gamePlayMode-1;
             isMoved = false;
             while (true) {
                 while (j>-1 && !isPosionHasNumber(i,j))
@@ -207,86 +222,88 @@ public class Game2048Algorithm {
                     break;
                 if (j < k){
                     isMoved = true;
-                    isAnimation = true;
+                    isFinalMove = true;
                     Number number = getNumber(i,j);
                     number.isNeedMove = true;
                     number.isNeedCombine = false;
-                    swapNumber(i*4+k,i*4+j);
+                    swapNumber(i*Game2048StaticControl.gamePlayMode+k,i*Game2048StaticControl.gamePlayMode+j);
                 }
-                if (k < 3 && getNumber(i,k).mScores==getNumber(i,k+1).mScores && !getNumber(i,k+1).isNeedCombine){
-                    isAnimation = true;
+                if (k < Game2048StaticControl.gamePlayMode-1 && getNumber(i,k).mScores==getNumber(i,k+1).mScores && !getNumber(i,k+1).isNeedCombine){
+                    isFinalCombie = true;
                     Number numberk = getNumber(i,k);
                     Number numberkl = getNumber(i,k+1);
                     if(isMoved){
                         numberkl.mBeforePosition = numberk.mBeforePosition;
                     }else {
-                        numberkl.mBeforePosition =  i*4+k;
+                        numberkl.mBeforePosition =  i*Game2048StaticControl.gamePlayMode+k;
                     }
-                    numberkl.mCurPosition = i*4+k+1;
+                    numberkl.mCurPosition = i*Game2048StaticControl.gamePlayMode+k+1;
                     numberkl.isNeedMove = true;
                     numberkl.isNeedCombine = true;
                     numberkl.mScores <<=1;
                     updateCurScoresAndHistoryScores(numberkl.mScores);
                     numberk.reset();
-                    numberk.mCurPosition = numberk.mBeforePosition = i*4+k;
+                    numberk.mCurPosition = numberk.mBeforePosition = i*Game2048StaticControl.gamePlayMode+k;
                 } else{
                     k--;
                 }
                 j--;
             }
         }
-        return isAnimation;
+        return isFinalCombie?2:(isFinalMove?1:0);
     }
-    public boolean upKeyDealAlgorithm(){
+    public int upKeyDealAlgorithm(){
         int i, j, k;
         boolean isMoved = false;
-        boolean isAnimation = false;
-        for(i=0;i<4;i++){
+        boolean isFinalMove = false;
+        boolean isFinalCombie = false;
+        for(i=0;i<Game2048StaticControl.gamePlayMode;i++){
             j=k=0;
             isMoved = false;
             while (true) {
-                while (j<4 && !isPosionHasNumber(j,i))
+                while (j<Game2048StaticControl.gamePlayMode && !isPosionHasNumber(j,i))
                     j++;
-                if (j > 3)
+                if (j > Game2048StaticControl.gamePlayMode-1)
                     break;
                 if (j > k){
                     isMoved = true;
-                    isAnimation = true;
+                    isFinalMove = true;
                     Number number = getNumber(j,i);
                     number.isNeedMove = true;
                     number.isNeedCombine = false;
-                    swapNumber(k*4+i,j*4+i);
+                    swapNumber(k*Game2048StaticControl.gamePlayMode+i,j*Game2048StaticControl.gamePlayMode+i);
                 }
                 if (k > 0 && getNumber(k,i).mScores==getNumber(k-1,i).mScores && !getNumber(k-1,i).isNeedCombine){
-                    isAnimation = true;
+                    isFinalCombie = true;
                     Number numberk = getNumber(k,i);
                     Number numberkl = getNumber(k-1,i);
                     if(isMoved){
                         numberkl.mBeforePosition = numberk.mBeforePosition;
                     }else {
-                        numberkl.mBeforePosition =  k*4+i;
+                        numberkl.mBeforePosition =  k*Game2048StaticControl.gamePlayMode+i;
                     }
-                    numberkl.mCurPosition = (k-1)*4+i;
+                    numberkl.mCurPosition = (k-1)*Game2048StaticControl.gamePlayMode+i;
                     numberkl.isNeedMove = true;
                     numberkl.isNeedCombine = true;
                     numberkl.mScores <<=1;
                     updateCurScoresAndHistoryScores(numberkl.mScores);
                     numberk.reset();
-                    numberk.mCurPosition = numberk.mBeforePosition = k*4+i;
+                    numberk.mCurPosition = numberk.mBeforePosition = k*Game2048StaticControl.gamePlayMode+i;
                 } else{
                     k++;
                 }
                 j++;
             }
         }
-        return isAnimation;
+        return isFinalCombie?2:(isFinalMove?1:0);
     }
-    public boolean downKeyDealAlgorithm(){
+    public int downKeyDealAlgorithm(){
         int i, j, k;
         boolean isMoved = false;
-        boolean isAnimation =  false;
-        for(i=0;i<4;i++){
-            j=k=3;
+        boolean isFinalMove = false;
+        boolean isFinalCombie = false;
+        for(i=0;i<Game2048StaticControl.gamePlayMode;i++){
+            j=k=Game2048StaticControl.gamePlayMode-1;
             isMoved = false;
             while (true) {
                 while (j>-1 && !isPosionHasNumber(j,i))
@@ -295,44 +312,44 @@ public class Game2048Algorithm {
                     break;
                 if (j < k){
                     isMoved = true;
-                    isAnimation = true;
+                    isFinalMove = true;
                     Number number = getNumber(j,i);
                     number.isNeedMove = true;
                     number.isNeedCombine = false;
-                    swapNumber(k*4+i,j*4+i);
+                    swapNumber(k*Game2048StaticControl.gamePlayMode+i,j*Game2048StaticControl.gamePlayMode+i);
                 }
-                if (k < 3 && getNumber(k,i).mScores==getNumber(k+1,i).mScores && !getNumber(k+1,i).isNeedCombine){
-                    isAnimation = true;
+                if (k < Game2048StaticControl.gamePlayMode-1 && getNumber(k,i).mScores==getNumber(k+1,i).mScores && !getNumber(k+1,i).isNeedCombine){
+                    isFinalCombie = true;
                     Number numberk = getNumber(k,i);
                     Number numberkl = getNumber(k+1,i);
                     if(isMoved){
                         numberkl.mBeforePosition = numberk.mBeforePosition;
                     }else {
-                        numberkl.mBeforePosition =  k*4+i;
+                        numberkl.mBeforePosition =  k*Game2048StaticControl.gamePlayMode+i;
                     }
-                    numberkl.mCurPosition = (k+1)*4+i;
+                    numberkl.mCurPosition = (k+1)*Game2048StaticControl.gamePlayMode+i;
                     numberkl.isNeedMove = true;
                     numberkl.isNeedCombine = true;
                     numberkl.mScores <<=1;
                     updateCurScoresAndHistoryScores(numberkl.mScores);
                     numberk.reset();
-                    numberk.mCurPosition = numberk.mBeforePosition = k*4+i;
+                    numberk.mCurPosition = numberk.mBeforePosition = k*Game2048StaticControl.gamePlayMode+i;
                 } else{
                     k--;
                 }
                 j--;
             }
         }
-        return isAnimation;
+        return isFinalCombie?2:(isFinalMove?1:0);
     }
     public boolean checkGameOver(){
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < Game2048StaticControl.gamePlayMode; i++)
         {
-            for (int j = 0; j < 4; j++)
+            for (int j = 0; j < Game2048StaticControl.gamePlayMode; j++)
             {
-                if (j != 3 && getNumber(i,j).mScores == getNumber(i,j+1).mScores)
+                if (j != Game2048StaticControl.gamePlayMode-1 && getNumber(i,j).mScores == getNumber(i,j+1).mScores)
                     return false;
-                if (i != 3 && getNumber(i,j).mScores == getNumber(i+1,j).mScores)
+                if (i != Game2048StaticControl.gamePlayMode-1 && getNumber(i,j).mScores == getNumber(i+1,j).mScores)
                     return false;
             }
         }

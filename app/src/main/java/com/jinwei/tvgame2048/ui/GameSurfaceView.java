@@ -22,7 +22,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     private final String TAG = "GameSurfaceView";
     GameSurfaceViewHelper mGSVH ;
     Handler mHandler;
-
+    Context mContext;
     @Override
     public void onGameOver() {
 
@@ -58,6 +58,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
     public GameSurfaceView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        mContext = context;
         setFocusable(true);
         setFocusableInTouchMode(true);
         requestFocus();
@@ -68,12 +69,15 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         Log.d(TAG,"surfaceCreated");
         Game2048StaticControl.gameSurfaceLength = getWidth();//width==height
         Log.d(TAG,"Game2048StaticControl.gameSurfaceLength:"+Game2048StaticControl.gameSurfaceLength);
+        //game mode
+        Game2048StaticControl.gamePlayMode = 5;
         //gameGapBetweenNumberViews:gameSurfaceViewPadding:gameNumberViewLength=1:2:6
-        Game2048StaticControl.gameGapBetweenNumberViews = Game2048StaticControl.gameSurfaceLength/31;
-        Game2048StaticControl.gameSurfaceViewPadding = Game2048StaticControl.gameSurfaceLength/31*2;
-        Game2048StaticControl.gameNumberViewLength = Game2048StaticControl.gameSurfaceLength/31*6;
-        Game2048StaticControl.initGameNumberViewPosition();
-        mGSVH = new GameSurfaceViewHelper(holder,mHandler);
+        int all=Game2048StaticControl.gamePlayMode*6+ Game2048StaticControl.gamePlayMode-1+2*2;
+        Game2048StaticControl.gameGapBetweenNumberViews = Game2048StaticControl.gameSurfaceLength/all;
+        Game2048StaticControl.gameSurfaceViewPadding = Game2048StaticControl.gameSurfaceLength/all*2;
+        Game2048StaticControl.gameNumberViewLength = Game2048StaticControl.gameSurfaceLength/all*6;
+        Game2048StaticControl.GameNumberViewPosition = Game2048StaticControl.initGameNumberViewPosition();
+        mGSVH = new GameSurfaceViewHelper(mContext,holder,mHandler);
         mGSVH.init();
     }
 

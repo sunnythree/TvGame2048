@@ -25,8 +25,8 @@ public class DrawTools {
     }
     public void drawSurfaceMap(Canvas canvas, Paint paint){
         paint.setColor(Color.WHITE);
-        for(int i=0;i<4;i++){
-            for(int j=0;j<4;j++){
+        for(int i=0;i<Game2048StaticControl.gamePlayMode;i++){
+            for(int j=0;j<Game2048StaticControl.gamePlayMode;j++){
                 paint.setColor(Color.WHITE);
                 canvas.drawRoundRect(Game2048StaticControl.GameNumberViewPosition[i][j],
                         Game2048StaticControl.gameRadiumOfNumberViews,
@@ -35,8 +35,8 @@ public class DrawTools {
         }
     }
     public void drawSurfaceNumbers(Canvas canvas, Paint paint) {
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
+        for (int i = 0; i < Game2048StaticControl.gamePlayMode; i++) {
+            for (int j = 0; j < Game2048StaticControl.gamePlayMode; j++) {
                 if (mGAM.isPosionHasNumber(i, j)) {
                     drawNumber(i,j,canvas,paint);
                 }
@@ -141,8 +141,8 @@ public class DrawTools {
 
     }
     public void drawSurfaceMapAndNumbersWhoIsNeedCombine(Canvas canvas,Paint paint){
-        for(int i=0;i<4;i++){
-            for(int j=0;j<4;j++){
+        for(int i=0;i<Game2048StaticControl.gamePlayMode;i++){
+            for(int j=0;j<Game2048StaticControl.gamePlayMode;j++){
                 if(mGAM.isPosionHasNumber(i,j)){
                     if(mGAM.getNumber(i,j).isNeedCombine){
                         drawNumberWithHalfValue(i,j,canvas,paint);

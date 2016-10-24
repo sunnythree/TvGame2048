@@ -23,18 +23,21 @@ public class Game2048StaticControl {
     public static int gameGapBetweenNumberViews = 0;
     //raduim of NumberView corner
     public static int gameRadiumOfNumberViews = 5;
+    //game mode
+    public static int gamePlayMode = 4;
     //number view position
-    public static RectF[][] GameNumberViewPosition = new RectF[4][4];
-    public static void initGameNumberViewPosition(){
+    public static RectF[][] GameNumberViewPosition  = null;
+    public static RectF[][] initGameNumberViewPosition(){
+        RectF [][]rectF = new RectF[Game2048StaticControl.gamePlayMode][Game2048StaticControl.gamePlayMode];
         int p = gameSurfaceViewPadding;
         int g = gameGapBetweenNumberViews;
         int l = gameNumberViewLength;
-
-        for(int i=0;i<4;i++){
-            for(int j=0;j<4;j++){
-                GameNumberViewPosition[i][j] = new RectF(p+j*g+j*l,p+i*g+i*l,p+j*g+j*l+l,p+i*g+i*l+l);
+        for(int i=0;i<Game2048StaticControl.gamePlayMode;i++){
+            for(int j=0;j<Game2048StaticControl.gamePlayMode;j++){
+                rectF[i][j] = new RectF(p+j*g+j*l,p+i*g+i*l,p+j*g+j*l+l,p+i*g+i*l+l);
             }
         }
+        return rectF;
     }
     public static int []gameNumberColors={
             Color.rgb(238, 228, 218),        // 2
@@ -67,4 +70,5 @@ public class Game2048StaticControl {
 
     //update scores and history highest scores
     public static final int UPDATE_CURRENT_HISTORY_SCORES = 0;
+
 }
