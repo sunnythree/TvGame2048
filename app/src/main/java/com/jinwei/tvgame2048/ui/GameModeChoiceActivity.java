@@ -1,6 +1,7 @@
 package com.jinwei.tvgame2048.ui;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
@@ -65,5 +66,35 @@ public class GameModeChoiceActivity extends Activity {
         Intent intent = new Intent(GameModeChoiceActivity.this,GameGoBackModeActivity.class);
         GameModeChoiceActivity.this.startActivity(intent);
         overridePendingTransition(R.anim.anim_right_in,R.anim.anim_left_out);
+    }
+    Dialog exitDialog;
+    @Override
+    public void onBackPressed() {
+        exitDialog = new Dialog(GameModeChoiceActivity.this,R.style.CustomDialog);
+        exitDialog.setContentView(R.layout.dialog_game_exit);
+        Button button;
+        button = (Button) exitDialog.findViewById(R.id.button_restart);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setAction("com.game2048.restart");
+                GameModeChoiceActivity.this.sendBroadcast(intent);
+                if(exitDialog != null){
+                    exitDialog.dismiss();
+                }
+            }
+        });
+        button = (Button) exitDialog.findViewById(R.id.button_exit);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(exitDialog != null){
+                    exitDialog.dismiss();
+                }
+                finish();
+            }
+        });
+        exitDialog.show();
     }
 }

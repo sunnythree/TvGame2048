@@ -68,7 +68,6 @@ public class DrawTools {
         float lenght = Game2048StaticControl.gameNumberViewLength/3*2;
         textSize = Math.min(lenght/numberCount*2,lenght);
         paint.setTextSize(textSize);
-
         canvas.drawText(text,
                 Game2048StaticControl.GameNumberViewPosition[x][y].left + Game2048StaticControl.gameNumberViewLength / 2 - numberCount*textSize/4-6,
                 Game2048StaticControl.GameNumberViewPosition[x][y].top + Game2048StaticControl.gameNumberViewLength / 2 + textSize/3, paint);
@@ -157,5 +156,25 @@ public class DrawTools {
                 }
             }
         }
+    }
+    public void drawGameOver(Canvas canvas, Paint paint){
+        paint.setColor(Color.argb(128,256,256,0));
+        canvas.drawRoundRect(0,0,Game2048StaticControl.gameSurfaceLength,Game2048StaticControl.gameSurfaceLength,20,20,paint);
+        paint.setTextSize(Game2048StaticControl.gameWinOrLostTextSize);
+        paint.setColor(Color.WHITE);
+        String text = "YOU LOST";
+        float width = paint.measureText(text);
+        canvas.drawText(text,Game2048StaticControl.gameSurfaceLength/2- width/2,
+                Game2048StaticControl.gameSurfaceLength/2+Game2048StaticControl.gameWinOrLostTextSize/3,paint);
+    }
+    public void drawGameVictory(Canvas canvas, Paint paint){
+        paint.setColor(Color.argb(128,256,256,0));
+        canvas.drawRoundRect(0,0,Game2048StaticControl.gameSurfaceLength,Game2048StaticControl.gameSurfaceLength,20,20,paint);
+        paint.setTextSize(Game2048StaticControl.gameWinOrLostTextSize);
+        paint.setColor(Color.WHITE);
+        String text = "YOU WIN";
+        float width = paint.measureText(text);
+        canvas.drawText(text,Game2048StaticControl.gameSurfaceLength/2-width/2,
+                Game2048StaticControl.gameSurfaceLength/2+Game2048StaticControl.gameWinOrLostTextSize/3,paint);
     }
 }

@@ -8,14 +8,17 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/GenerateActivityTheme">
-        <activity android:name=".MainActivity" />
-        <activity android:name=".ui.GameGoBackModeActivity" />
-        <activity android:name=".ui.GameModeChoiceActivity">
+        <activity android:name=".ui.GameModeChoiceActivity"
+            android:clearTaskOnLaunch="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainActivity"
+            android:clearTaskOnLaunch="true">
+        </activity>
+        <activity android:name=".ui.GameGoBackModeActivity" />
         <activity android:name=".ui.GameSettingsActivity"
             android:theme="@style/SettingActivityTheme">
         </activity>

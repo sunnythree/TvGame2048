@@ -70,8 +70,12 @@ public class Game2048StaticControl {
     //game scores and history highest scores
     public static int gameCurrentScores = 0;
     public static int gameHistoryHighestScores = 0;
-
     //update scores and history highest scores
     public static final int UPDATE_CURRENT_HISTORY_SCORES = 0;
-
+    public static final int EXIT_CURRENT_GAME = 1;
+    //game has win
+    public static boolean gameHasWin = false;
+    public static boolean gameHasFail = false;
+    //game win or lost test size
+    public static final int gameWinOrLostTextSize = 120;
 }

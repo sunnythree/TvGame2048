@@ -47,13 +47,22 @@ public class GameSurfaceViewHelper {
         @Override
         public void onReceive(Context context, Intent intent)
         {
-            NumbersItemOfQueue numbersItemOfQueue = mNumberQueue.pullItem();
-            if(numbersItemOfQueue == null){
-                Log.d(TAG,"cannot back any more");
-                return;
+            String action = intent.getAction();
+            if(action.equals("com.game2048.go.back")){
+                NumbersItemOfQueue numbersItemOfQueue = mNumberQueue.pullItem();
+                if(numbersItemOfQueue == null){
+                    Log.d(TAG,"cannot back any more");
+                    return;
+                }
+                mGAM.resetCurrentNumbers(numbersItemOfQueue.mNumbers);
+                doDrawGameSurface();
+            }else if(action.equals("com.game2048.restart")){
+                mGAM.restartGame();
+                doDrawGameSurface();
+            }else if(action.equals("com.game2048.exit")){
+                mHandler.sendEmptyMessage(Game2048StaticControl.EXIT_CURRENT_GAME);
             }
-            mGAM.resetCurrentNumbers(numbersItemOfQueue.mNumbers);
-            doDrawGameSurface();
+
         }
     }
     ReceiveBroadCast mReceiver= new ReceiveBroadCast();
@@ -71,6 +80,8 @@ public class GameSurfaceViewHelper {
         mSoundMap.put(2,mSoundPool.load(context, R.raw.merge,1));
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("com.game2048.go.back");
+        intentFilter.addAction("com.game2048.restart");
+        intentFilter.addAction("com.game2048.exit");
         mContext.registerReceiver(mReceiver,intentFilter);
         mHandlerThread = new HandlerThread("Game2048Animation");
         mHandlerThread.start();
@@ -82,6 +93,7 @@ public class GameSurfaceViewHelper {
                         int position  = mGAM.setOneRandomNumberInRandomPosition();
                         generateRandomNumberAnimation(position);
                         doDrawGameSurface();
+                        mGAM.checkGameWin();
                         break;
                     }
                     case Game2048StaticControl.DIRECT_UP:{
@@ -144,6 +156,10 @@ public class GameSurfaceViewHelper {
     public void exit(){
         mHandlerThread.quitSafely();
         mSoundPool.release();
+        SharedPreferences preference = PreferenceManager.getDefaultSharedPreferences(mContext);
+        SharedPreferences.Editor editor =  preference.edit();
+        editor.putInt("bestScores",Game2048StaticControl.gameHistoryHighestScores);
+        editor.commit();
     }
     public void registListener(GameSurfaceView surfaceView){
         mGAM.setListener(surfaceView);
@@ -197,23 +213,42 @@ public class GameSurfaceViewHelper {
 
     public void upKeyUpdate(){
         //Log.d(TAG,"up key");
-        mAniHander.sendEmptyMessage(Game2048StaticControl.DIRECT_UP);
+        if(!Game2048StaticControl.gameHasWin){
+            mAniHander.sendEmptyMessage(Game2048StaticControl.DIRECT_UP);
+        }
     }
     public void downKeyUpdate(){
         //Log.d(TAG,"down key");
-        mAniHander.sendEmptyMessage(Game2048StaticControl.DIRECT_DOWN);
+        if(!Game2048StaticControl.gameHasWin){
+            mAniHander.sendEmptyMessage(Game2048StaticControl.DIRECT_DOWN);
+        }
     }
     public void leftKeyUpdate(){
         //Log.d(TAG,"left key");
-        mAniHander.sendEmptyMessage(Game2048StaticControl.DIRECT_LEFT);
+        if(!Game2048StaticControl.gameHasWin){
+            mAniHander.sendEmptyMessage(Game2048StaticControl.DIRECT_LEFT);
+        }
     }
     public void rightKeyUpdate(){
         //Log.d(TAG,"right key");
-        mAniHander.sendEmptyMessage(Game2048StaticControl.DIRECT_RIGHT);
+        if(!Game2048StaticControl.gameHasWin){
+            mAniHander.sendEmptyMessage(Game2048StaticControl.DIRECT_RIGHT);
+        }
     }
     private void playSoundEffect(int ret){
         if(Game2048StaticControl.isGameSoundOn){
             mSoundPool.play(mSoundMap.get(ret),1,1,0,0,1);
         }
+    }
+    public void gameOver(){
+        Canvas canvas = mHolder.lockCanvas();
+        mDrawTools.drawGameOver(canvas,mPaint);
+        mHolder.unlockCanvasAndPost(canvas);
+    }
+    public void gameVictory(){
+        Game2048StaticControl.gameHasWin = true;
+        Canvas canvas = mHolder.lockCanvas();
+        mDrawTools.drawGameVictory(canvas,mPaint);
+        mHolder.unlockCanvasAndPost(canvas);
     }
 }

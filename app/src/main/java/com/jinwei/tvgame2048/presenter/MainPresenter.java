@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.Handler;
+import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.view.SurfaceView;
 import android.view.WindowManager;
@@ -28,8 +29,12 @@ public class MainPresenter {
         wm.getDefaultDisplay().getSize(point);
         Game2048StaticControl.gameUIWidth = point.x;
         Game2048StaticControl.gameUIHeight = point.y;
-        Game2048StaticControl.gameHistoryHighestScores = 0;
         Game2048StaticControl.gameCurrentScores = 0;
+        Game2048StaticControl.gameHasWin = false;
+        Game2048StaticControl.gameHasFail = false;
+        SharedPreferences preference = PreferenceManager.getDefaultSharedPreferences(mContext);
+        Game2048StaticControl.isGameSoundOn = preference.getBoolean("isSoundOn",true);
+        Game2048StaticControl.gameHistoryHighestScores = preference.getInt("bestScores",0);
         mSurfaceViewPresenter.initSurfaceView(surfaceView,handler);
     }
 

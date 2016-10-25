@@ -40,6 +40,7 @@ public class GameGoBackModeActivity extends Activity {
     }
     private void goMainActivity(){
         Intent intent = new Intent(GameGoBackModeActivity.this,MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         GameGoBackModeActivity.this.startActivity(intent);
         overridePendingTransition(R.anim.anim_right_in,R.anim.anim_left_out);
     }

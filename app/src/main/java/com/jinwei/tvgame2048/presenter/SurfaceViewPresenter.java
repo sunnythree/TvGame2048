@@ -20,6 +20,7 @@ public class SurfaceViewPresenter {
     }
     public void initSurfaceView(SurfaceView surfaceView, Handler handler){
         mSurfaceView = (GameSurfaceView) surfaceView;
+        mSurfaceView.requestFocus();
         mSurfaceView.init(handler);
     }
 }

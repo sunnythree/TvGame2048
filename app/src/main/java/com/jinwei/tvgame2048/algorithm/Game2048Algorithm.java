@@ -367,10 +367,16 @@ public class Game2048Algorithm {
         }
         return true;
     }
-    public void checkGameWin(int curScore){
-        if(curScore==2048){
-            if(mListener!=null){
-                mListener.onGameVictory();
+    public void checkGameWin(){
+        Number number;
+        for (int i = 0; i < Game2048StaticControl.gamePlayMode; i++) {
+            for (int j = 0; j < Game2048StaticControl.gamePlayMode; j++) {
+                number = getNumber(i,j);
+                if(number.mScores==8){
+                    if (mListener!=null){
+                        mListener.onGameVictory();
+                    }
+                }
             }
         }
     }
@@ -380,5 +386,17 @@ public class Game2048Algorithm {
             Game2048StaticControl.gameHistoryHighestScores=Game2048StaticControl.gameCurrentScores;
         }
         mHandler.sendEmptyMessage(Game2048StaticControl.UPDATE_CURRENT_HISTORY_SCORES);
+    }
+    public void restartGame(){
+        Number number;
+        for (int i = 0; i < Game2048StaticControl.gamePlayMode; i++) {
+            for (int j = 0; j < Game2048StaticControl.gamePlayMode; j++) {
+                number = getNumber(i,j);
+                number.reset();
+                number.mBeforePosition = 0;
+                number.mCurPosition = 0;
+            }
+        }
+        initTowNumbers();
     }
 }
