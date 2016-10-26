@@ -9,7 +9,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 
 import com.jinwei.tvgame2048.MainActivity;
@@ -20,10 +20,10 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class GameSettingsActivity extends Activity {
-    @Bind(R.id.game_settings_sound) FrameLayout soundLayout;
-    @Bind(R.id.game_settings_go_back) FrameLayout goBackLayout;
-    @Bind(R.id.game_settings_go_home) FrameLayout goHomeLayout;
-    @Bind(R.id.game_settings_restart) FrameLayout restartLayout;
+    @Bind(R.id.game_settings_sound) LinearLayout soundLayout;
+    @Bind(R.id.game_settings_go_back) LinearLayout goBackLayout;
+    @Bind(R.id.game_settings_go_home) LinearLayout goHomeLayout;
+    @Bind(R.id.game_settings_restart) LinearLayout restartLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -38,14 +38,33 @@
         <item name="android:background">@drawable/bg_button_dialog_selector</item>
     </style>
     <style name="score_textview">
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:gravity">center</item>
         <item name="android:textSize">26sp</item>
         <item name="android:textColor">@android:color/holo_orange_light</item>
     </style>
     <style name="settings_text_item_style">
+        <item name="android:layout_margin">20dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:gravity">center_vertical</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@android:color/holo_orange_light</item>
     </style>
+    <style name="settings_image_item_style">
+        <item name="android:layout_margin">20dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+    <style name="settings_linearlayout_item_style">
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
+        <item name="android:layout_marginStart">5dp</item>
+        <item name="android:layout_marginEnd">5dp</item>
+    </style>
     <style name="score_title_textview">
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:gravity">center</item>
         <item name="android:textSize">26sp</item>
         <item name="android:textColor">@android:color/holo_orange_dark</item>
     </style>

@@ -7,63 +7,71 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.jinwei.tvgame2048.MainActivity">
-    <LinearLayout
+    <RelativeLayout
         android:layout_marginLeft="90dp"
-        android:layout_width="450dp"
-        android:layout_height="match_parent">
+        android:background="@drawable/bg_round_rectangle_white_stroke"
+        android:layout_gravity="center_vertical"
+        android:layout_width="460dp"
+        android:layout_height="460dp">
         <com.jinwei.tvgame2048.ui.GameSurfaceView
             android:id="@+id/game_surface_view"
             android:focusableInTouchMode="true"
             android:focusable="true"
-            android:layout_gravity="center_vertical"
-            android:layout_width="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_width="450dp"
             android:layout_height="450dp" />
-    </LinearLayout>
+    </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/group1"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal"
-        android:layout_width="410dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
-            android:layout_marginTop="400dp"
+            android:id="@+id/text_scores_dex"
+            android:layout_centerInParent="true"
             android:orientation="vertical"
+            android:background="@drawable/bg_round_rectangle_white_stroke"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-            <TextView
-                style="@style/score_textview"
-                android:text="@string/game_current_scores"
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                style="@style/score_textview"
-                android:text="@string/game_best_scores"
+                android:layout_height="wrap_content">
+                <TextView
+                    style="@style/score_textview"
+                    android:text="@string/game_best_scores"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_marginLeft="20dp"
+                    style="@style/score_title_textview"
+                    android:text="0"
+                    android:id="@+id/history_text_view"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <ImageView
+                android:background="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="5dp" />
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content">
+                <TextView
+                    style="@style/score_textview"
+                    android:text="@string/game_current_scores"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_marginLeft="20dp"
+                    style="@style/score_title_textview"
+                    android:text="0"
+                    android:id="@+id/score_text_view"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
      </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="400dp"
-            android:layout_marginLeft="30dp"
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_marginLeft="20dp"
-                style="@style/score_title_textview"
-                android:text="0"
-                android:id="@+id/score_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:layout_marginLeft="20dp"
-                style="@style/score_title_textview"
-                android:text="0"
-                android:id="@+id/history_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>

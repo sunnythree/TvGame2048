@@ -6,5 +6,5 @@
     <color name="colorGrayDf">#898989</color>
     <color name="button_focus">#ffff45</color>
     <color name="bg_game_settings">#878787</color>
-    <color name="half_transparency_wihte">#80ffffff</color>
+    <color name="half_transparency_wihte">#a0a0a0a0</color>
 </resources>
