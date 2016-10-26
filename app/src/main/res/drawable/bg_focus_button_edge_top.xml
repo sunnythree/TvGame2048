@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- 第一层 -->
+    <item>
+        <shape>
+            <solid android:color="@android:color/holo_blue_light" />
+            <!-- 圆角 -->
+            <corners android:radius="10dp" />
+        </shape>
+    </item>
+    <!-- 第二层 -->
+    <!-- 距离第一层上边缘10px -->
+    <item android:top="10dp">
+        <shape>
+            <!-- 实心填充颜色 -->
+            <solid android:color="@android:color/holo_blue_light"/>
+        </shape>
+    </item>
+
+</layer-list>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@android:color/transparent"
+    android:layout_width="300dp"
+    android:layout_height="match_parent"
+    tools:context="com.jinwei.tvgame2048.ui.GameSettingsActivity">
+<LinearLayout
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:background="@drawable/bg_round_rectangle_white_stroke"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_marginTop="5dp"
+            style="@style/choice_mode_button_style_top"
+            android:id="@+id/button_mode3"
+            android:text="@string/text_mode3"
+            android:layout_width="match_parent"
+            android:layout_height="75dp" />
+        <ImageView
+            android:background="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="3dp" />
+        <Button
+            style="@style/choice_mode_button_style"
+            android:id="@+id/button_mode4"
+            android:text="@string/text_mode4"
+            android:layout_width="match_parent"
+            android:layout_height="75dp" />
+        <ImageView
+            android:background="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="3dp" />
+        <Button
+            style="@style/choice_mode_button_style"
+            android:id="@+id/button_mode5"
+            android:text="@string/text_mode5"
+            android:layout_width="match_parent"
+            android:layout_height="75dp" />
+        <ImageView
+            android:background="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="3dp" />
+        <Button
+            style="@style/choice_mode_button_style"
+            android:id="@+id/button_mode6"
+            android:text="@string/text_mode6"
+            android:layout_width="match_parent"
+            android:layout_height="75dp" />
+        <ImageView
+            android:background="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="3dp" />
+        <Button
+            android:layout_marginBottom="5dp"
+            style="@style/choice_mode_button_style_bottom"
+            android:id="@+id/button_settings"
+            android:text="settings"
+            android:layout_width="match_parent"
+            android:layout_height="75dp" />
+    </LinearLayout>
+</RelativeLayout>

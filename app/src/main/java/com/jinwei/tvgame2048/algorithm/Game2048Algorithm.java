@@ -369,26 +369,34 @@ public class Game2048Algorithm {
     }
     public void checkGameWin(){
         Number number;
+        int bestScores=0;
         for (int i = 0; i < Game2048StaticControl.gamePlayMode; i++) {
             for (int j = 0; j < Game2048StaticControl.gamePlayMode; j++) {
                 number = getNumber(i,j);
-                if(number.mScores==8){
-                    if (mListener!=null){
-                        mListener.onGameVictory();
-                    }
+                if(number.mScores>bestScores){
+                    bestScores = number.mScores;
                 }
+            }
+        }
+        if(bestScores==2048){
+            if (mListener!=null){
+                mListener.onGameVictory();
             }
         }
     }
     private void updateCurScoresAndHistoryScores(int stepScores){
         Game2048StaticControl.gameCurrentScores += stepScores;
+        Log.d(TAG,"stepScores"+stepScores);
+        Log.d(TAG,"Game2048StaticControl.gameCurrentScores"+Game2048StaticControl.gameCurrentScores);
         if(Game2048StaticControl.gameHistoryHighestScores<Game2048StaticControl.gameCurrentScores){
             Game2048StaticControl.gameHistoryHighestScores=Game2048StaticControl.gameCurrentScores;
         }
+        Log.d(TAG,"Game2048StaticControl.gameHistoryHighestScores"+Game2048StaticControl.gameHistoryHighestScores);
         mHandler.sendEmptyMessage(Game2048StaticControl.UPDATE_CURRENT_HISTORY_SCORES);
     }
     public void restartGame(){
         Number number;
+        Game2048StaticControl.gameCurrentScores = 0;
         for (int i = 0; i < Game2048StaticControl.gamePlayMode; i++) {
             for (int j = 0; j < Game2048StaticControl.gamePlayMode; j++) {
                 number = getNumber(i,j);

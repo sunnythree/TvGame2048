@@ -1,36 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:background="#ffffffff"
+    android:background="@mipmap/game_bg"
     android:id="@+id/choice_mode_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout
-        android:layout_centerInParent="true"
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <Button
-            android:id="@+id/button_mode3"
-            android:text="3 X 3 mode"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content" />
-        <Button
-
-            android:id="@+id/button_mode4"
-            android:text="4 X 4 mode(classic)"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content" />
-        <Button
-            android:id="@+id/button_mode5"
-            android:text="5 X 5 mode"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content" />
-        <Button
-            android:id="@+id/button_mode6"
-            android:text="6 X 6 mode"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-
+    <fragment
+        android:id="@+id/fragment_header"
+        android:name="com.jinwei.tvgame2048.ui.GameModeChoiceHeaderFragment"
+        android:layout_width="400dp"
+        android:layout_height="match_parent"
+        />
+    <fragment
+        android:id="@+id/fragment_body"
+        android:layout_toRightOf="@+id/fragment_header"
+        android:name="com.jinwei.tvgame2048.ui.GameModeChoiceBodyFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
 </RelativeLayout>

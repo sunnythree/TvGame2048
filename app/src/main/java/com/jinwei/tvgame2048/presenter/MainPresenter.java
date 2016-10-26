@@ -37,5 +37,8 @@ public class MainPresenter {
         Game2048StaticControl.gameHistoryHighestScores = preference.getInt("bestScores",0);
         mSurfaceViewPresenter.initSurfaceView(surfaceView,handler);
     }
+    public void forcusGame(){
+        mSurfaceViewPresenter.forcusSurfaceView();
+    }
 
 }

@@ -23,4 +23,7 @@ public class SurfaceViewPresenter {
         mSurfaceView.requestFocus();
         mSurfaceView.init(handler);
     }
+    public void forcusSurfaceView(){
+        mSurfaceView.requestFocus();
+    }
 }

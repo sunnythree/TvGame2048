@@ -18,6 +18,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.jinwei.tvgame2048.R;
 import com.jinwei.tvgame2048.algorithm.Game2048Algorithm;
@@ -35,7 +36,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     public void onGameOver() {
         Log.d(TAG,"onGameOver");
         mGSVH.gameOver();
-        buildLostDialog().show();
+        buildAskDialog().show();
     }
 
     @Override
@@ -111,6 +112,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     private Dialog buildWinDialog(){
         winDialog = new Dialog(mContext,R.style.CustomDialog);
         winDialog.setContentView(R.layout.dialog_game_win);
+        TextView textView = (TextView) winDialog.findViewById(R.id.ask_text);
+        textView.setText(mContext.getString(R.string.win_game));
         Button button;
         button = (Button) winDialog.findViewById(R.id.button_continue);
         button.setOnClickListener(new OnClickListener() {
@@ -145,34 +148,39 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         });
         return winDialog;
     }
-    Dialog lostDialog;
-    private Dialog buildLostDialog(){
-        lostDialog = new Dialog(mContext,R.style.CustomDialog);
-        lostDialog.setContentView(R.layout.dialog_game_over);
+    Dialog askDialog;
+    private Dialog buildAskDialog(){
+        askDialog = new Dialog(mContext,R.style.CustomDialog);
+        askDialog.setContentView(R.layout.ask_dialog_layout);
+        TextView textView = (TextView) askDialog.findViewById(R.id.ask_text);
+        textView.setText(mContext.getString(R.string.lost_game));
         Button button;
-        button = (Button) lostDialog.findViewById(R.id.button_restart);
-        button.setOnClickListener(new OnClickListener() {
+        button = (Button) askDialog.findViewById(R.id.dialog_button_yes);
+        button.setText(mContext.getString(R.string.game_setting_restart));
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.setAction("com.game2048.restart");
                 mContext.sendBroadcast(intent);
-                if(lostDialog != null){
-                    lostDialog.dismiss();
+                if(askDialog != null){
+                    askDialog.dismiss();
                 }
             }
         });
-        button = (Button) lostDialog.findViewById(R.id.button_home);
-        button.setOnClickListener(new OnClickListener() {
+        button = (Button) askDialog.findViewById(R.id.dialog_button_no);
+        button.setText(mContext.getString(R.string.game_setting_go_home));
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext,GameModeChoiceActivity.class);
                 mContext.startActivity(intent);
-                if(lostDialog != null){
-                    lostDialog.dismiss();
+                if(askDialog != null){
+                    askDialog.dismiss();
                 }
             }
         });
-        return lostDialog;
+        return askDialog;
     }
+
 }

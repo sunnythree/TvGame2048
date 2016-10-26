@@ -9,6 +9,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.FrameLayout;
 import android.widget.Switch;
 
 import com.jinwei.tvgame2048.MainActivity;
@@ -19,36 +20,38 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class GameSettingsActivity extends Activity {
-    @Bind(R.id.toggle_button_sound) Switch mSwitch;
-    @Bind(R.id.button_back) Button mButtonBack;
-    @Bind(R.id.button_restart) Button mButtonRestart;
+    @Bind(R.id.game_settings_sound) FrameLayout soundLayout;
+    @Bind(R.id.game_settings_go_back) FrameLayout goBackLayout;
+    @Bind(R.id.game_settings_go_home) FrameLayout goHomeLayout;
+    @Bind(R.id.game_settings_restart) FrameLayout restartLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_settings);
         ButterKnife.bind(this);
-        mSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+        soundLayout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    Game2048StaticControl.isGameSoundOn = true;
-                    SharedPreferences preference = PreferenceManager.getDefaultSharedPreferences(GameSettingsActivity.this);
-                    SharedPreferences.Editor  editor  =  preference.edit();
-                    editor.putBoolean("isSoundOn",true);
-                    editor.commit();
-                }else {
+            public void onClick(View v) {
+                if(Game2048StaticControl.isGameSoundOn){
                     Game2048StaticControl.isGameSoundOn = false;
                     SharedPreferences preference = PreferenceManager.getDefaultSharedPreferences(GameSettingsActivity.this);
                     SharedPreferences.Editor  editor  =  preference.edit();
                     editor.putBoolean("isSoundOn",false);
                     editor.commit();
+                }else {
+                    Game2048StaticControl.isGameSoundOn = true;
+                    SharedPreferences preference = PreferenceManager.getDefaultSharedPreferences(GameSettingsActivity.this);
+                    SharedPreferences.Editor  editor  =  preference.edit();
+                    editor.putBoolean("isSoundOn",true);
+                    editor.commit();
                 }
             }
         });
         if(!Game2048StaticControl.isGoBackEnabled || Game2048StaticControl.gameHasFail || Game2048StaticControl.gameHasWin){
-            mButtonBack.setEnabled(false);
+            goBackLayout.setEnabled(false);
         }
-        mButtonBack.setOnClickListener(new View.OnClickListener() {
+        goBackLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(Game2048StaticControl.isGoBackEnabled){
@@ -58,7 +61,14 @@ public class GameSettingsActivity extends Activity {
                 }
             }
         });
-        mButtonRestart.setOnClickListener(new View.OnClickListener() {
+        goHomeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GameSettingsActivity.this,GameModeChoiceActivity.class);
+                GameSettingsActivity.this.startActivity(intent);
+            }
+        });
+        restartLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();

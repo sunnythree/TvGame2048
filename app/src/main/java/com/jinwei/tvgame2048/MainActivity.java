@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Bundle;
+import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.view.KeyEvent;
 import android.view.SurfaceView;
 import android.view.View;
@@ -49,6 +51,14 @@ public class MainActivity extends Activity {
         ButterKnife.bind(this);
         mainPresenter = new MainPresenter(this);
         mainPresenter.initGame(mGameSurfaceView,mHandler);
+        Game2048StaticControl.gameHistoryHighestScores = PreferenceManager.getDefaultSharedPreferences(this).getInt("bestScores",0);
+        mHighestScoresTextView.setText(String.valueOf(Game2048StaticControl.gameHistoryHighestScores));
+    }
+
+    @Override
+    protected void onResume() {
+        mainPresenter.forcusGame();
+        super.onResume();
     }
 
     @Override
@@ -63,5 +73,35 @@ public class MainActivity extends Activity {
         MainActivity.this.startActivity(intent);
         overridePendingTransition(R.anim.anim_right_in,R.anim.anim_left_out);
     }
-
+    @Override
+    public void onBackPressed() {
+        final Dialog askDialog;
+        askDialog = new Dialog(this, R.style.CustomDialog);
+        askDialog.setContentView(R.layout.ask_dialog_layout);
+        Button button;
+        TextView textView = (TextView) askDialog.findViewById(R.id.ask_text);
+        textView.setText(getString(R.string.go_home));
+        button = (Button) askDialog.findViewById(R.id.dialog_button_yes);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,GameModeChoiceActivity.class);
+                MainActivity.this.startActivity(intent);
+                overridePendingTransition(R.anim.anim_right_in,R.anim.anim_left_out);
+                if (askDialog != null) {
+                    askDialog.dismiss();
+                }
+            }
+        });
+        button = (Button) askDialog.findViewById(R.id.dialog_button_no);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (askDialog != null) {
+                    askDialog.dismiss();
+                }
+            }
+        });
+        askDialog.show();
+    }
 }

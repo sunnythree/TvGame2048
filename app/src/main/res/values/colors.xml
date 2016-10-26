@@ -3,4 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorGrayDf">#898989</color>
+    <color name="button_focus">#ffff45</color>
+    <color name="bg_game_settings">#878787</color>
+    <color name="half_transparency_wihte">#80ffffff</color>
 </resources>
