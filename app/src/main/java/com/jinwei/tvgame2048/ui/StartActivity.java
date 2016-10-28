@@ -19,7 +19,6 @@ import butterknife.ButterKnife;
 public class StartActivity extends AppCompatActivity implements StartAniSurfaceView.AniOverListener{
     @Bind(R.id.start_ani_surfaceview)
     StartAniSurfaceView surfaceView;
-    @Bind(R.id.image_view_progress)
     ImageView imageView;
     @Override
     public void onAniOver() {
@@ -47,12 +46,4 @@ public class StartActivity extends AppCompatActivity implements StartAniSurfaceV
         surfaceView.setAniOverListener(this);
     }
 
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        if(hasFocus){
-            Animation animation = AnimationUtils.loadAnimation(this,R.anim.imageview_progress_ani);
-            imageView.startAnimation(animation);
-        }
-        super.onWindowFocusChanged(hasFocus);
-    }
 }

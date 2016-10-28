@@ -19,11 +19,13 @@
             android:layout_height="400dp" />
     </FrameLayout>
 
-    <ImageView
-        android:id="@+id/image_view_progress"
-        android:src="@mipmap/progress_bg"
+    <ProgressBar
+        style="@android:style/Widget.ProgressBar.Horizontal"
         android:layout_below="@+id/frame_layout_container"
+        android:indeterminateDrawable="@drawable/progress_self_define"
         android:layout_marginTop="20dp"
+        android:indeterminate="true"
+        android:indeterminateBehavior="repeat"
         android:layout_centerHorizontal="true"
         android:layout_width="500dp"
         android:layout_height="10dp" />
