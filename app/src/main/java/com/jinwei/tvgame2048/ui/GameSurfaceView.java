@@ -1,5 +1,6 @@
 package com.jinwei.tvgame2048.ui;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -20,6 +21,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.jinwei.tvgame2048.MainActivity;
 import com.jinwei.tvgame2048.R;
 import com.jinwei.tvgame2048.algorithm.Game2048Algorithm;
 import com.jinwei.tvgame2048.model.Game2048StaticControl;
@@ -86,6 +88,10 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         Game2048StaticControl.gameSurfaceViewPadding = Game2048StaticControl.gameSurfaceLength/all*2;
         Game2048StaticControl.gameNumberViewLength = Game2048StaticControl.gameSurfaceLength/all*6;
         Game2048StaticControl.GameNumberViewPosition = Game2048StaticControl.initGameNumberViewPosition();
+        Log.d(TAG,"Game2048StaticControl.gameSurfaceLength:"+Game2048StaticControl.gameSurfaceLength);
+        Log.d(TAG,"Game2048StaticControl.gameGapBetweenNumberViews:"+Game2048StaticControl.gameGapBetweenNumberViews);
+        Log.d(TAG,"Game2048StaticControl.gameSurfaceViewPadding:"+Game2048StaticControl.gameSurfaceViewPadding);
+        Log.d(TAG,"Game2048StaticControl.gameNumberViewLength:"+Game2048StaticControl.gameNumberViewLength);
         mGSVH = new GameSurfaceViewHelper(mContext,holder,mHandler);
         registListener();
         mGSVH.init();
@@ -141,12 +147,31 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                shareGame2048();
                 if(winDialog!=null){
                     winDialog.dismiss();
                 }
             }
         });
         return winDialog;
+    }
+    private void shareGame2048(){
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        String text = null;
+        if(Game2048StaticControl.gamePlayMode==3){
+            text = mContext.getString(R.string.text_mode3);
+        }else if(Game2048StaticControl.gamePlayMode==4){
+            text = mContext.getString(R.string.text_mode4);
+        }else if(Game2048StaticControl.gamePlayMode==5){
+            text = mContext.getString(R.string.text_mode5);
+        }else if(Game2048StaticControl.gamePlayMode==6){
+            text = mContext.getString(R.string.text_mode6);
+        }
+        sendIntent.putExtra(Intent.EXTRA_TEXT, "I got "+Game2048StaticControl.gameCurrentScores+" scores with " +
+                text+"mode in 2048 game,Do you want to have a try?" );
+        sendIntent.setType("text/plain");
+        mContext.startActivity(Intent.createChooser(sendIntent, "Share to ..."));
     }
     Dialog askDialog;
     private Dialog buildAskDialog(){
@@ -175,6 +200,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
             public void onClick(View v) {
                 Intent intent = new Intent(mContext,GameModeChoiceActivity.class);
                 mContext.startActivity(intent);
+                ((Activity)mContext).overridePendingTransition(R.anim.anim_left_in,R.anim.anim_right_out);
                 if(askDialog != null){
                     askDialog.dismiss();
                 }

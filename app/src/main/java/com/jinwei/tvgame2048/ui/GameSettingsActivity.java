@@ -66,6 +66,7 @@ public class GameSettingsActivity extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent(GameSettingsActivity.this,GameModeChoiceActivity.class);
                 GameSettingsActivity.this.startActivity(intent);
+                overridePendingTransition(R.anim.anim_left_in,R.anim.anim_right_out);
             }
         });
         restartLayout.setOnClickListener(new View.OnClickListener() {

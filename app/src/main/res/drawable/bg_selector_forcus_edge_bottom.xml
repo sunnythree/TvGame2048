@@ -5,5 +5,5 @@
     <item android:state_pressed="true"
         android:drawable="@drawable/bg_focus_button_edge_bottom" /> <!-- hovered -->
     <item android:state_focused="false"
-        android:drawable="@drawable/bg_default_button" /> <!-- default -->
+        android:drawable="@drawable/bg_default_button_edge_bottom" /> <!-- default -->
 </selector>

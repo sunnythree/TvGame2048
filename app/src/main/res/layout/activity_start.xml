@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@mipmap/game_bg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.jinwei.tvgame2048.ui.StartActivity">
+    <FrameLayout
+        android:id="@+id/frame_layout_container"
+        android:background="@drawable/bg_round_rectangle_white_stroke"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:layout_width="410dp"
+        android:layout_height="410dp">
+        <com.jinwei.tvgame2048.ui.StartAniSurfaceView
+            android:layout_gravity="center"
+            android:id="@+id/start_ani_surfaceview"
+            android:layout_width="400dp"
+            android:layout_height="400dp" />
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/image_view_progress"
+        android:src="@mipmap/progress_bg"
+        android:layout_below="@+id/frame_layout_container"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="500dp"
+        android:layout_height="10dp" />
+</RelativeLayout>

@@ -158,7 +158,9 @@ public class DrawTools {
         }
     }
     public void drawGameOver(Canvas canvas, Paint paint){
-        paint.setColor(Color.argb(128,256,256,0));
+        Log.d(TAG,"drawGameOver");
+        paint.setColor(Color.rgb(256,256,0));
+        paint.setAlpha(128);
         canvas.drawRoundRect(0,0,Game2048StaticControl.gameSurfaceLength,Game2048StaticControl.gameSurfaceLength,20,20,paint);
         paint.setTextSize(Game2048StaticControl.gameWinOrLostTextSize);
         paint.setColor(Color.WHITE);

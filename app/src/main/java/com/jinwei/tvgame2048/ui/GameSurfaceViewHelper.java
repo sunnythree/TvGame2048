@@ -91,8 +91,15 @@ public class GameSurfaceViewHelper {
                 switch (msg.what){
                     case Game2048StaticControl.GENERATE_NUMBER:{
                         int position  = mGAM.setOneRandomNumberInRandomPosition();
-                        generateRandomNumberAnimation(position);
-                        doDrawGameSurface();
+                        Log.d(TAG,"position is : "+position);
+                        if(position>-1){
+                            generateRandomNumberAnimation(position);
+                            doDrawGameSurface();
+                            if(mGAM.getBlankCount()==0){
+                                mGAM.checkGameOver();
+                                break;
+                            }
+                        }
                         mGAM.checkGameWin();
                         break;
                     }
@@ -156,6 +163,7 @@ public class GameSurfaceViewHelper {
     public void exit(){
         mHandlerThread.quitSafely();
         mSoundPool.release();
+        mContext.unregisterReceiver(mReceiver);
         SharedPreferences preference = PreferenceManager.getDefaultSharedPreferences(mContext);
         SharedPreferences.Editor editor =  preference.edit();
         editor.putInt("bestScores",Game2048StaticControl.gameHistoryHighestScores);
@@ -166,6 +174,10 @@ public class GameSurfaceViewHelper {
     }
     public void doDrawGameSurface(){
         Canvas canvas = mHolder.lockCanvas();
+        if(canvas == null){
+            Log.d(TAG,"doDrawGameSurface lockCanvas error");
+            return;
+        }
         DrawTools.initSurfaceBg(canvas,mPaint);
         mDrawTools.drawSurfaceMap(canvas,mPaint);
         mDrawTools.drawSurfaceNumbers(canvas,mPaint);
@@ -174,6 +186,7 @@ public class GameSurfaceViewHelper {
 
     public void startAnimation(SurfaceHolder holder,Paint paint,int direct){
         int count = 0;
+        RectF rectF = new RectF();
         while (count++<Game2048StaticControl.ANIMATION_MOVE_STEP) {
             Canvas canvas = holder.lockCanvas();
             mDrawTools.initSurfaceBg(canvas, paint);
@@ -181,7 +194,7 @@ public class GameSurfaceViewHelper {
             mDrawTools.drawSurfaceMapAndNumbersWhoIsNeedCombine(canvas,paint);
             for (int i = 0; i < Game2048StaticControl.gamePlayMode; i++) {
                 for (int j = 0; j < Game2048StaticControl.gamePlayMode; j++) {
-                    RectF rectF = mGAM.aniInsertValue(i, j, count, Game2048StaticControl.ANIMATION_MOVE_STEP,direct);
+                    mGAM.aniInsertValue(i, j, count, Game2048StaticControl.ANIMATION_MOVE_STEP,direct,rectF);
                     if(rectF != null && mGAM.isPosionHasNumber(i,j) && mGAM.getNumber(i,j).isNeedMove){
                         mDrawTools.drawNumberByRectF(i,j,canvas,paint,rectF);
                     }
@@ -193,6 +206,10 @@ public class GameSurfaceViewHelper {
 
     private void generateRandomNumberAnimation(int position){
         Canvas canvas = mHolder.lockCanvas();
+        if(canvas == null){
+            Log.d(TAG,"generateRandomNumberAnimation lockCanvas error");
+            return;
+        }
         RectF numberRectF = Game2048StaticControl.GameNumberViewPosition[position/Game2048StaticControl.gamePlayMode]
                 [position%Game2048StaticControl.gamePlayMode];
         RectF rectF = new RectF();
@@ -241,13 +258,25 @@ public class GameSurfaceViewHelper {
         }
     }
     public void gameOver(){
+        Log.d(TAG,"gameOver");
+        Game2048StaticControl.gameHasFail = true;
+        doDrawGameSurface();
         Canvas canvas = mHolder.lockCanvas();
+        if(canvas == null){
+            Log.d(TAG,"gameOver lockCanvas error");
+            return;
+        }
         mDrawTools.drawGameOver(canvas,mPaint);
         mHolder.unlockCanvasAndPost(canvas);
     }
     public void gameVictory(){
         Game2048StaticControl.gameHasWin = true;
+        doDrawGameSurface();
         Canvas canvas = mHolder.lockCanvas();
+        if(canvas == null){
+            Log.d(TAG,"gameVictory lockCanvas error");
+            return;
+        }
         mDrawTools.drawGameVictory(canvas,mPaint);
         mHolder.unlockCanvasAndPost(canvas);
     }

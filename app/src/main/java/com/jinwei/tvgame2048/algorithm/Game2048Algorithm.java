@@ -44,15 +44,10 @@ public class Game2048Algorithm {
     }
     public int  setOneRandomNumberInRandomPosition(){
         int scores = Game2048Algorithm.getRandom2Or4();
-        int blankCount = mNumbers.getBlankCount();
+        int blankCount = getBlankCount();
+        Log.d(TAG,"blankCount:"+blankCount);
         int blankTh = 0;
-        if(blankCount==0){
-            if(checkGameOver()){
-                //gameOver
-                if(mListener != null){
-                    mListener.onGameOver();
-                }
-            }
+        if(blankCount<=0){
             return -1;
         }else{
             blankTh = Game2048Algorithm.getRandomPosition(blankCount);
@@ -96,10 +91,10 @@ public class Game2048Algorithm {
     private final int DIRECT_DOWN = 1;
     private final int DIRECT_LEFT = 2;
     private final int DIRECT_RIGHT = 3;
-    public RectF aniInsertValue(int x,int y,int count,int insertCount,int direct){
+    public void aniInsertValue(int x,int y,int count,int insertCount,int direct,RectF rectF){
         Number number = getNumber(x,y);
         if(number.mCurPosition ==  number.mBeforePosition){
-            return null;
+            return;
         }
         float xDiffPixels = Game2048StaticControl.GameNumberViewPosition[number.mCurPosition/Game2048StaticControl.gamePlayMode]
                 [number.mCurPosition%Game2048StaticControl.gamePlayMode].left
@@ -144,7 +139,8 @@ public class Game2048Algorithm {
             }
             default:break;
         }
-        return new RectF(xNewPosition,yNewPosition,xNewPosition+Game2048StaticControl.gameNumberViewLength,yNewPosition+Game2048StaticControl.gameNumberViewLength);
+        rectF.set(xNewPosition,yNewPosition,xNewPosition+Game2048StaticControl.gameNumberViewLength
+                ,yNewPosition+Game2048StaticControl.gameNumberViewLength);
     }
     public void updateNumbers(){
         for (int i = 0; i < Game2048StaticControl.gamePlayMode; i++) {
@@ -355,6 +351,7 @@ public class Game2048Algorithm {
         return isFinalCombie?2:(isFinalMove?1:0);
     }
     public boolean checkGameOver(){
+        Log.d(TAG,"checkGameOver");
         for (int i = 0; i < Game2048StaticControl.gamePlayMode; i++)
         {
             for (int j = 0; j < Game2048StaticControl.gamePlayMode; j++)
@@ -364,6 +361,9 @@ public class Game2048Algorithm {
                 if (i != Game2048StaticControl.gamePlayMode-1 && getNumber(i,j).mScores == getNumber(i+1,j).mScores)
                     return false;
             }
+        }
+        if (mListener!=null){
+            mListener.onGameOver();
         }
         return true;
     }
@@ -378,7 +378,9 @@ public class Game2048Algorithm {
                 }
             }
         }
-        if(bestScores==2048){
+        Game2048StaticControl.gameCurrentBestNumberScores = bestScores;
+        int winScores = (int)Math.pow(2,Game2048StaticControl.gamePlayMode*2+3);
+        if(bestScores==winScores){
             if (mListener!=null){
                 mListener.onGameVictory();
             }
@@ -386,8 +388,8 @@ public class Game2048Algorithm {
     }
     private void updateCurScoresAndHistoryScores(int stepScores){
         Game2048StaticControl.gameCurrentScores += stepScores;
-        Log.d(TAG,"stepScores"+stepScores);
-        Log.d(TAG,"Game2048StaticControl.gameCurrentScores"+Game2048StaticControl.gameCurrentScores);
+        //Log.d(TAG,"stepScores"+stepScores);
+        //Log.d(TAG,"Game2048StaticControl.gameCurrentScores"+Game2048StaticControl.gameCurrentScores);
         if(Game2048StaticControl.gameHistoryHighestScores<Game2048StaticControl.gameCurrentScores){
             Game2048StaticControl.gameHistoryHighestScores=Game2048StaticControl.gameCurrentScores;
         }
@@ -406,5 +408,8 @@ public class Game2048Algorithm {
             }
         }
         initTowNumbers();
+    }
+    public int getBlankCount(){
+        return mNumbers.getBlankCount();
     }
 }

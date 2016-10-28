@@ -42,6 +42,10 @@ public class GameModeChoiceBodyFragment extends Fragment{
                 mImageView.setImageResource(R.mipmap.mode6);
                 break;
             }
+            case 4:{
+                //mImageView.setImageResource(R.mipmap.mode6);
+                break;
+            }
         }
     }
 }

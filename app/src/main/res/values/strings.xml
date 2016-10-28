@@ -20,4 +20,6 @@
     <string name="win_game">You win!!!</string>
     <string name="lost_game">You lost!!!</string>
     <string name="go_home">Go home?</string>
+    <string name="game_share">Share</string>
+    <string name="cancel">Cancel</string>
 </resources>

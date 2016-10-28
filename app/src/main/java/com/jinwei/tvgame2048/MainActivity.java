@@ -26,6 +26,8 @@ public class MainActivity extends Activity {
     @Bind(R.id.game_surface_view) SurfaceView mGameSurfaceView;
     @Bind(R.id.score_text_view) TextView mCurScoresTextView;
     @Bind(R.id.history_text_view) TextView mHighestScoresTextView;
+    @Bind(R.id.text_hint) TextView mHintTextView;
+    @Bind(R.id.text_mode) TextView mModeTextView;
     MainPresenter mainPresenter;
     Handler mHandler = new Handler(){
         @Override
@@ -53,6 +55,18 @@ public class MainActivity extends Activity {
         mainPresenter.initGame(mGameSurfaceView,mHandler);
         Game2048StaticControl.gameHistoryHighestScores = PreferenceManager.getDefaultSharedPreferences(this).getInt("bestScores",0);
         mHighestScoresTextView.setText(String.valueOf(Game2048StaticControl.gameHistoryHighestScores));
+        mHintTextView.setText("Get one "+String.valueOf((int) Math.pow(2,Game2048StaticControl.gamePlayMode*2+3)+" number to win!"));
+        String text = null;
+        if(Game2048StaticControl.gamePlayMode==3){
+            text = this.getString(R.string.text_mode3);
+        }else if(Game2048StaticControl.gamePlayMode==4){
+            text = this.getString(R.string.text_mode4);
+        }else if(Game2048StaticControl.gamePlayMode==5){
+            text = this.getString(R.string.text_mode5);
+        }else if(Game2048StaticControl.gamePlayMode==6){
+            text = this.getString(R.string.text_mode6);
+        }
+        mModeTextView.setText("Current mode : "+" "+text);
     }
 
     @Override
@@ -87,7 +101,7 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,GameModeChoiceActivity.class);
                 MainActivity.this.startActivity(intent);
-                overridePendingTransition(R.anim.anim_right_in,R.anim.anim_left_out);
+                overridePendingTransition(R.anim.anim_left_in,R.anim.anim_right_out);
                 if (askDialog != null) {
                     askDialog.dismiss();
                 }

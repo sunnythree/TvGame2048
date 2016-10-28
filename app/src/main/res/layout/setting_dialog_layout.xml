@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@drawable/bg_round_rectangle_white_stroke"
+    android:layout_width="@dimen/ask_dialog_width"
+    android:layout_height="@dimen/ask_dialog_height">
+    <ImageView
+        android:src="@mipmap/game_name"
+        android:layout_margin="5dp"
+        android:id="@+id/header_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/header_line"
+        android:layout_below="@+id/header_image"
+        android:background="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="2dp" />
+    <LinearLayout
+        android:id="@+id/settings_dialog_container"
+        android:layout_below="@+id/header_line"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageButton
+            style="@style/choice_mode_button_style"
+            android:id="@+id/button_sound_switch"
+            android:src="@mipmap/ic_settings_sound_on"
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+        <Button
+            style="@style/choice_mode_button_style"
+            android:id="@+id/button_share"
+            android:text="@string/game_share"
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+        <Button
+            style="@style/choice_mode_button_style_bottom"
+            android:id="@+id/button_cancel"
+            android:text="@string/cancel"
+            android:layout_marginBottom="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+</RelativeLayout>

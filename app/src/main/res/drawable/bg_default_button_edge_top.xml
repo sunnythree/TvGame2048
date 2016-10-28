@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- 第一层 -->
+    <!--item>
+        <shape>
+            <solid android:color="@color/half_transparency_wihte" />
+            <corners android:radius="10dp" />
+        </shape>
+    </item-->
+    <!-- 第二层 -->
+    <!-- 距离第一层上边缘10px -->
+    <!--item android:top="10dp">
+        <shape>
+            <solid android:color="@color/half_transparency_wihte"/>
+        </shape>
+    </item-->
+
+</layer-list>
