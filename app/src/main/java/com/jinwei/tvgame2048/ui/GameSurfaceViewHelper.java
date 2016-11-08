@@ -85,7 +85,7 @@ public class GameSurfaceViewHelper {
         mContext.registerReceiver(mReceiver,intentFilter);
         mHandlerThread = new HandlerThread("Game2048Animation");
         mHandlerThread.start();
-        mAniHander = new Handler(){
+        mAniHander = new Handler(mHandlerThread.getLooper()){
             @Override
             public void handleMessage(Message msg) {
                 switch (msg.what){

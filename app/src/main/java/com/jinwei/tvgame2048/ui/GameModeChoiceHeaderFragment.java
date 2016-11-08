@@ -5,9 +5,11 @@ import android.app.Dialog;
 import android.app.Fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +32,8 @@ public class GameModeChoiceHeaderFragment extends Fragment {
     Button buttonMode5;
     Button buttonMode6;
     Button buttonSettings;
+    ButtonForcusChangeListener buttonForcusChangeListener = new ButtonForcusChangeListener();
+    ButtonClickListener buttonClickListener = new ButtonClickListener();
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -39,90 +43,17 @@ public class GameModeChoiceHeaderFragment extends Fragment {
         buttonMode5 = ButterKnife.findById(view,R.id.button_mode5);
         buttonMode6 = ButterKnife.findById(view,R.id.button_mode6);
         buttonSettings = ButterKnife.findById(view,R.id.button_settings);
-        buttonMode3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //game mode
-                Game2048StaticControl.gamePlayMode = 3;
-                buildAskDialog().show();
-            }
-        });
-        buttonMode4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //game mode
-                Game2048StaticControl.gamePlayMode = 4;
-                buildAskDialog().show();
-            }
-        });
-        buttonMode5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //game mode
-                Game2048StaticControl.gamePlayMode = 5;
-                buildAskDialog().show();
-            }
-        });
-        buttonMode6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //game mode
-                Game2048StaticControl.gamePlayMode = 6;
-                buildAskDialog().show();
-            }
-        });
-        buttonSettings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                buildSettingsDialog().show();
-            }
-        });
+        buttonMode3.setOnClickListener(buttonClickListener);
+        buttonMode4.setOnClickListener(buttonClickListener);
+        buttonMode5.setOnClickListener(buttonClickListener);
+        buttonMode6.setOnClickListener(buttonClickListener);
+        buttonSettings.setOnClickListener(buttonClickListener);
         //set onForcusChangerListener
-        buttonMode3.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus){
-                    GameModeChoiceBodyFragment fragment = (GameModeChoiceBodyFragment)getFragmentManager().findFragmentById(R.id.fragment_body);
-                    fragment.setImageViewSrc(0);
-                }
-            }
-        });
-        buttonMode4.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus) {
-                    GameModeChoiceBodyFragment fragment = (GameModeChoiceBodyFragment) getFragmentManager().findFragmentById(R.id.fragment_body);
-                    fragment.setImageViewSrc(1);
-                }
-            }
-        });
-        buttonMode5.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus) {
-                    GameModeChoiceBodyFragment fragment = (GameModeChoiceBodyFragment) getFragmentManager().findFragmentById(R.id.fragment_body);
-                    fragment.setImageViewSrc(2);
-                }
-            }
-        });
-        buttonMode6.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus) {
-                    GameModeChoiceBodyFragment fragment = (GameModeChoiceBodyFragment) getFragmentManager().findFragmentById(R.id.fragment_body);
-                    fragment.setImageViewSrc(3);
-                }
-            }
-        });
-        buttonSettings.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus) {
-                    GameModeChoiceBodyFragment fragment = (GameModeChoiceBodyFragment) getFragmentManager().findFragmentById(R.id.fragment_body);
-                    fragment.setImageViewSrc(4);
-                }
-            }
-        });
+        buttonMode3.setOnFocusChangeListener(buttonForcusChangeListener);
+        buttonMode4.setOnFocusChangeListener(buttonForcusChangeListener);
+        buttonMode5.setOnFocusChangeListener(buttonForcusChangeListener);
+        buttonMode6.setOnFocusChangeListener(buttonForcusChangeListener);
+        buttonSettings.setOnFocusChangeListener(buttonForcusChangeListener);
         return view;
     }
     private void goGameMainActivity(){
@@ -211,5 +142,93 @@ public class GameModeChoiceHeaderFragment extends Fragment {
         sendIntent.putExtra(Intent.EXTRA_TEXT, "I am playing 2048 game,do you want to play it?");
         sendIntent.setType("text/plain");
         startActivity(Intent.createChooser(sendIntent, "Share to ..."));
+    }
+    class ButtonForcusChangeListener implements View.OnFocusChangeListener{
+        GameModeChoiceBodyFragment fragment;
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            int id = v.getId();
+            Log.d("hello","onFocusChange");
+            fragment = (GameModeChoiceBodyFragment) GameModeChoiceHeaderFragment.this.getActivity().getFragmentManager().findFragmentById(R.id.fragment_body);
+            switch (id) {
+                case R.id.button_mode3: {
+                    if(hasFocus){
+                        fragment.setImageViewSrc(0);
+                        ((Button)v).setTextColor(Color.WHITE);
+                    }else{
+                        ((Button)v).setTextColor(Color.DKGRAY);
+                    }
+                    break;
+                }
+                case R.id.button_mode4: {
+                    if(hasFocus){
+                        fragment.setImageViewSrc(1);
+                        ((Button)v).setTextColor(Color.WHITE);
+                    }else{
+                        ((Button)v).setTextColor(Color.DKGRAY);
+                    }
+                    break;
+                }
+                case R.id.button_mode5: {
+                    if(hasFocus){
+                        fragment.setImageViewSrc(2);
+                        ((Button)v).setTextColor(Color.WHITE);
+                    }else{
+                        ((Button)v).setTextColor(Color.DKGRAY);
+                    }
+                    break;
+                }
+                case R.id.button_mode6: {
+                    if(hasFocus){
+                        fragment.setImageViewSrc(3);
+                        ((Button)v).setTextColor(Color.WHITE);
+                    }else{
+                        ((Button)v).setTextColor(Color.DKGRAY);
+                    }
+                    break;
+                }
+                case R.id.button_settings: {
+                    if(hasFocus){
+                        //fragment.setImageViewSrc(2);
+                        ((Button)v).setTextColor(Color.WHITE);
+                    }else{
+                        ((Button)v).setTextColor(Color.DKGRAY);
+                    }
+                    break;
+                }
+            }
+        }
+    }
+    class ButtonClickListener implements View.OnClickListener{
+        @Override
+        public void onClick(View v) {
+            int id = v.getId();
+            switch (id) {
+                case R.id.button_mode3: {
+                    Game2048StaticControl.gamePlayMode = 3;
+                    buildAskDialog().show();
+                    break;
+                }
+                case R.id.button_mode4: {
+                    Game2048StaticControl.gamePlayMode = 4;
+                    buildAskDialog().show();
+                    break;
+                }
+                case R.id.button_mode5: {
+                    Game2048StaticControl.gamePlayMode = 5;
+                    buildAskDialog().show();
+                    break;
+                }
+                case R.id.button_mode6: {
+                    Game2048StaticControl.gamePlayMode = 6;
+                    buildAskDialog().show();
+                    break;
+                }
+                case R.id.button_settings: {
+                    buildSettingsDialog().show();
+                    break;
+                }
+            }
+        }
     }
 }

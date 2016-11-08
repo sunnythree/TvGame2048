@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:background="@drawable/bg_round_rectangle_white_stroke"
+    android:background="@drawable/bg_round_rectangle_stroke"
     android:layout_width="@dimen/ask_dialog_width"
     android:layout_height="@dimen/ask_dialog_height">
     <ImageView
@@ -25,7 +25,7 @@
         <ImageButton
             style="@style/choice_mode_button_style"
             android:id="@+id/button_sound_switch"
-            android:src="@mipmap/ic_settings_sound_on"
+            android:src="@mipmap/game_sound_off_focus"
             android:layout_width="match_parent"
             android:layout_height="50dp" />
         <Button

@@ -71,7 +71,7 @@
     <style name="choice_mode_button_style">
         <item name="android:shadowColor">@color/bg_game_settings</item>
         <item name="android:textSize">30sp</item>
-        <item name="android:textColor">#ffffff</item>
+        <item name="android:textColor">@android:color/darker_gray</item>
         <item name="android:layout_marginLeft">5dp</item>
         <item name="android:layout_marginRight">5dp</item>
         <item name="android:background">@drawable/bg_selector_focus</item>
@@ -79,7 +79,7 @@
     <style name="choice_mode_button_style_top">
         <item name="android:shadowColor">@color/bg_game_settings</item>
         <item name="android:textSize">30sp</item>
-        <item name="android:textColor">#ffffff</item>
+        <item name="android:textColor">@android:color/darker_gray</item>
         <item name="android:layout_marginLeft">5dp</item>
         <item name="android:layout_marginRight">5dp</item>
         <item name="android:background">@drawable/bg_selector_focus_edge_top</item>
@@ -87,7 +87,7 @@
     <style name="choice_mode_button_style_bottom">
         <item name="android:shadowColor">@color/bg_game_settings</item>
         <item name="android:textSize">30sp</item>
-        <item name="android:textColor">#ffffff</item>
+        <item name="android:textColor">@android:color/darker_gray</item>
         <item name="android:layout_marginLeft">5dp</item>
         <item name="android:layout_marginRight">5dp</item>
         <item name="android:background">@drawable/bg_selector_forcus_edge_bottom</item>

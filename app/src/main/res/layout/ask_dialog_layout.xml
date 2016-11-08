@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:background="@drawable/bg_round_rectangle_white_stroke"
+    android:background="@drawable/bg_round_rectangle_stroke"
     android:layout_width="@dimen/ask_dialog_width"
     android:layout_height="@dimen/ask_dialog_height">
     <ImageView

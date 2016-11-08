@@ -6,7 +6,7 @@
     tools:context="com.jinwei.tvgame2048.ui.GameSettingsActivity">
     <LinearLayout
         android:orientation="vertical"
-        android:background="@drawable/bg_round_rectangle_white_stroke"
+        android:background="@drawable/bg_round_rectangle_stroke"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_width="wrap_content"
@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content" />
             <ImageView
                 style="@style/settings_image_item_style"
-                android:src="@mipmap/ic_settings_sound_on"
+                android:src="@mipmap/game_sound_off_focus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content" />
             <ImageView
                 style="@style/settings_image_item_style"
-                android:src="@mipmap/ic_settings_sound_on"
+                android:src="@mipmap/game_sound_off_focus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content" />
             <ImageView
                 style="@style/settings_image_item_style"
-                android:src="@mipmap/ic_settings_sound_on"
+                android:src="@mipmap/game_sound_off_focus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -93,7 +93,7 @@
                 android:layout_height="wrap_content" />
             <ImageView
                 style="@style/settings_image_item_style"
-                android:src="@mipmap/ic_settings_sound_on"
+                android:src="@mipmap/game_sound_off_focus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
