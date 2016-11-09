@@ -86,4 +86,5 @@ public class Game2048StaticControl {
     public static final int gameWinOrLostTextSize = 120;
     //current best number scores
     public static int gameCurrentBestNumberScores = 0;
+    public static boolean isShouldCheckGameWin = true;
 }

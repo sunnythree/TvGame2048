@@ -32,6 +32,7 @@ public class MainPresenter {
         Game2048StaticControl.gameCurrentScores = 0;
         Game2048StaticControl.gameHasWin = false;
         Game2048StaticControl.gameHasFail = false;
+        Game2048StaticControl.isShouldCheckGameWin = true;
         SharedPreferences preference = PreferenceManager.getDefaultSharedPreferences(mContext);
         Game2048StaticControl.isGameSoundOn = preference.getBoolean("isSoundOn",true);
         Game2048StaticControl.gameHistoryHighestScores = preference.getInt("bestScores",0);

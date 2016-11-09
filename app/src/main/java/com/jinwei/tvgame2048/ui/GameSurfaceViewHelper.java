@@ -257,27 +257,19 @@ public class GameSurfaceViewHelper {
 
     public void upKeyUpdate(){
         //Log.d(TAG,"up key");
-        if(!Game2048StaticControl.gameHasWin){
-            mAniHander.sendEmptyMessage(Game2048StaticControl.DIRECT_UP);
-        }
+        mAniHander.sendEmptyMessage(Game2048StaticControl.DIRECT_UP);
     }
     public void downKeyUpdate(){
         //Log.d(TAG,"down key");
-        if(!Game2048StaticControl.gameHasWin){
-            mAniHander.sendEmptyMessage(Game2048StaticControl.DIRECT_DOWN);
-        }
+        mAniHander.sendEmptyMessage(Game2048StaticControl.DIRECT_DOWN);
     }
     public void leftKeyUpdate(){
         //Log.d(TAG,"left key");
-        if(!Game2048StaticControl.gameHasWin){
-            mAniHander.sendEmptyMessage(Game2048StaticControl.DIRECT_LEFT);
-        }
+        mAniHander.sendEmptyMessage(Game2048StaticControl.DIRECT_LEFT);
     }
     public void rightKeyUpdate(){
         //Log.d(TAG,"right key");
-        if(!Game2048StaticControl.gameHasWin){
             mAniHander.sendEmptyMessage(Game2048StaticControl.DIRECT_RIGHT);
-        }
     }
     private void playSoundEffect(int ret){
         if(Game2048StaticControl.isGameSoundOn){

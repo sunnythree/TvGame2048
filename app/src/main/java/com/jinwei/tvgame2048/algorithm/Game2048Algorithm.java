@@ -368,6 +368,7 @@ public class Game2048Algorithm {
         return true;
     }
     public void checkGameWin(){
+        if(!Game2048StaticControl.isShouldCheckGameWin)return;
         Number number;
         int bestScores=0;
         for (int i = 0; i < Game2048StaticControl.gamePlayMode; i++) {

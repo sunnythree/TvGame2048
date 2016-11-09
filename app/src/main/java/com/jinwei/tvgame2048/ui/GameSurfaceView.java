@@ -125,7 +125,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Game2048StaticControl.gameHasWin = false;
+                Game2048StaticControl.isShouldCheckGameWin = false;
                 if(winDialog!=null){
                     winDialog.dismiss();
                 }
@@ -200,6 +200,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
             public void onClick(View v) {
                 Intent intent = new Intent(mContext,GameModeChoiceActivity.class);
                 mContext.startActivity(intent);
+                mGSVH.mGAM.restartGame();
                 ((Activity)mContext).overridePendingTransition(R.anim.anim_left_in,R.anim.anim_right_out);
                 if(askDialog != null){
                     askDialog.dismiss();

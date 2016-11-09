@@ -6,6 +6,7 @@
     android:layout_height="match_parent">
     <LinearLayout
         android:orientation="vertical"
+        android:background="@drawable/bg_of_dialog_with_round_rectangle"
         android:layout_centerInParent="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -16,31 +17,32 @@
             android:textColor="@color/blue_number2"
             android:layout_gravity="center_horizontal"
             android:text="@string/allow_go_back_ask"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="300dp"
+            android:layout_height="100dp" />
         <LinearLayout
-            android:background="#00000000"
             android:layout_below="@+id/ask_text"
             android:layout_gravity="center_horizontal"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <Button
                 android:id="@+id/button_continue"
                 style="@style/dialog_button"
                 android:text="continue"
-                android:layout_width="90dp"
+                android:layout_width="80dp"
                 android:layout_height="30dp" />
             <Button
                 android:id="@+id/button_restart"
                 style="@style/dialog_button"
                 android:text="restart"
-                android:layout_width="90dp"
+                android:layout_width="80dp"
                 android:layout_height="30dp" />
             <Button
                 android:id="@+id/button_share"
                 style="@style/dialog_button"
                 android:text="share"
-                android:layout_width="90dp"
+                android:layout_width="80dp"
                 android:layout_height="30dp" />
         </LinearLayout>
     </LinearLayout>
