@@ -30,7 +30,7 @@
         <!--是否浮现在activity之上-->
         <item name="android:windowIsFloating">true</item>
         <!--是否模糊-->
-        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:backgroundDimEnabled">true</item>
     </style>
     <style name="dialog_button">
         <item name="android:layout_margin">10dp</item>
@@ -41,17 +41,21 @@
         <item name="android:layout_margin">10dp</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">26sp</item>
-        <item name="android:textColor">@android:color/holo_orange_light</item>
+        <item name="android:textColor">@color/blue_number2</item>
     </style>
     <style name="settings_text_item_style">
-        <item name="android:layout_margin">20dp</item>
+        <item name="android:layout_marginStart">15dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:textSize">20sp</item>
-        <item name="android:textColor">@android:color/holo_orange_light</item>
+        <item name="android:textColor">@color/gray_stoke</item>
     </style>
     <style name="settings_image_item_style">
-        <item name="android:layout_margin">20dp</item>
+        <item name="android:layout_marginStart">30dp</item>
+        <item name="android:layout_marginEnd">15dp</item>
+        <item name="android:layout_marginTop">12dp</item>
+        <item name="android:layout_marginBottom">12dp</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:gravity">center_vertical</item>
     </style>
@@ -59,19 +63,19 @@
         <item name="android:layout_gravity">center_horizontal</item>
         <item name="android:focusable">true</item>
         <item name="android:focusableInTouchMode">true</item>
-        <item name="android:layout_marginStart">5dp</item>
-        <item name="android:layout_marginEnd">5dp</item>
+        <item name="android:layout_marginStart">12dp</item>
+        <item name="android:layout_marginEnd">12dp</item>
     </style>
     <style name="score_title_textview">
         <item name="android:layout_margin">10dp</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">26sp</item>
-        <item name="android:textColor">@android:color/holo_orange_dark</item>
+        <item name="android:textColor">@color/blue_number2</item>
     </style>
     <style name="choice_mode_button_style">
         <item name="android:shadowColor">@color/bg_game_settings</item>
         <item name="android:textSize">30sp</item>
-        <item name="android:textColor">@android:color/darker_gray</item>
+        <item name="android:textColor">@color/gray_stoke</item>
         <item name="android:layout_marginLeft">5dp</item>
         <item name="android:layout_marginRight">5dp</item>
         <item name="android:background">@drawable/bg_selector_focus</item>
@@ -79,7 +83,7 @@
     <style name="choice_mode_button_style_top">
         <item name="android:shadowColor">@color/bg_game_settings</item>
         <item name="android:textSize">30sp</item>
-        <item name="android:textColor">@android:color/darker_gray</item>
+        <item name="android:textColor">@color/gray_stoke</item>
         <item name="android:layout_marginLeft">5dp</item>
         <item name="android:layout_marginRight">5dp</item>
         <item name="android:background">@drawable/bg_selector_focus_edge_top</item>
@@ -87,7 +91,7 @@
     <style name="choice_mode_button_style_bottom">
         <item name="android:shadowColor">@color/bg_game_settings</item>
         <item name="android:textSize">30sp</item>
-        <item name="android:textColor">@android:color/darker_gray</item>
+        <item name="android:textColor">@color/gray_stoke</item>
         <item name="android:layout_marginLeft">5dp</item>
         <item name="android:layout_marginRight">5dp</item>
         <item name="android:background">@drawable/bg_selector_forcus_edge_bottom</item>

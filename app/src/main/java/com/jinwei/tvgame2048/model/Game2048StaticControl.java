@@ -43,19 +43,24 @@ public class Game2048StaticControl {
         return rectF;
     }
     public static int []gameNumberColors={
-            Color.rgb(238, 228, 218),        // 2
-            Color.rgb(237, 224, 200),		// 4
-            Color.rgb(242, 177, 121),		// 8
-            Color.rgb(245, 149, 99),			//16
-            Color.rgb(246, 124, 95),			//32
-            Color.rgb(246, 94, 59),			//64
-            Color.rgb(237, 207, 114),		//128
-            Color.rgb(237, 204, 97),			//256
-            Color.rgb(246, 206, 70),			//512
-            Color.rgb(237, 197, 63),			//1024
-            Color.rgb(234, 185, 19)			//2048
+            Color.parseColor("#425992"),       // 2
+            Color.parseColor("#263886"), 		// 4
+            Color.parseColor("#1a2b81"), 		// 8
+            Color.parseColor("#1e659c"), 		//16
+            Color.parseColor("#2192b1"), 		//32
+            Color.parseColor("#26cdcd"), 		//64
+            Color.parseColor("#0ddfdf"), 		//128
+            Color.parseColor("#6aa6b4"), 		//256
+            Color.parseColor("#968ca4"), 		//512
+            Color.parseColor("#b77898"), 		//1024
+            Color.parseColor("#de628a"), 		//2048
+            Color.parseColor("#e26a7b"),       //4096
+            Color.parseColor("#ed7e54"),       //8192
+            Color.parseColor("#f79131"),       //16384
+            Color.parseColor("#ff5140"),       //32768
+            Color.parseColor("#fe1c5d"),       //65536
     };
-    public static int gameSurfacceViewGbColor = Color.rgb(182,170,160);
+    public static int gameSurfacceViewGbColor = Color.parseColor("#a0a0a0");
 
     //animation
     public static final int DIRECT_UP = 0;
@@ -73,6 +78,7 @@ public class Game2048StaticControl {
     //update scores and history highest scores
     public static final int UPDATE_CURRENT_HISTORY_SCORES = 0;
     public static final int EXIT_CURRENT_GAME = 1;
+    public static final int SHOW_GAME_SCORES = 2;
     //game has win
     public static boolean gameHasWin = false;
     public static boolean gameHasFail = false;

@@ -1,47 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:background="@drawable/bg_round_rectangle_stroke"
-    android:layout_width="@dimen/ask_dialog_width"
-    android:layout_height="@dimen/ask_dialog_height">
-    <ImageView
-        android:background="@drawable/bg_default_button_edge_top"
-        android:src="@mipmap/game_name"
-        android:layout_margin="5dp"
-        android:id="@+id/header_image"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <ImageView
-        android:id="@+id/header_line"
-        android:layout_below="@+id/header_image"
-        android:background="@android:color/white"
-        android:layout_width="match_parent"
-        android:layout_height="2dp" />
-    <TextView
-        android:id="@+id/ask_text"
-        android:gravity="center"
-        android:textSize="@dimen/text_mode_size"
-        android:textColor="@android:color/holo_blue_light"
-        android:layout_below="@id/header_line"
-        android:layout_centerHorizontal="true"
-        android:text="@string/allow_go_back_ask"
+    android:background="@android:color/transparent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_centerInParent="true"
+        android:background="@drawable/bg_of_dialog_with_round_rectangle"
         android:layout_width="wrap_content"
-        android:layout_height="100dp" />
-    <Button
-        style="@style/dialog_button"
-        android:text="@string/allow_go_back"
-        android:id="@+id/dialog_button_yes"
-        android:layout_below="@+id/ask_text"
-        android:layout_marginLeft="20dp"
-        android:layout_width="90dp"
-        android:layout_height="40dp" />
-    <Button
-        style="@style/dialog_button"
-        android:text="@string/forbid_go_back"
-        android:id="@+id/dialog_button_no"
-        android:layout_below="@+id/ask_text"
-        android:layout_marginRight="20dp"
-        android:layout_alignParentRight="true"
-        android:layout_width="90dp"
-        android:layout_height="40dp" />
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/ask_text"
+            android:gravity="center"
+            android:textSize="@dimen/text_mode_size"
+            android:textColor="@color/blue_number2"
+            android:layout_centerHorizontal="true"
+            android:text="@string/allow_go_back_ask"
+            android:layout_width="300dp"
+            android:layout_height="100dp" />
+        <Button
+            style="@style/dialog_button"
+            android:text="@string/allow_go_back"
+            android:id="@+id/dialog_button_yes"
+            android:layout_below="@+id/ask_text"
+            android:layout_alignLeft="@+id/ask_text"
+            android:layout_width="90dp"
+            android:layout_height="40dp" />
+        <Button
+            style="@style/dialog_button"
+            android:text="@string/forbid_go_back"
+            android:id="@+id/dialog_button_no"
+            android:layout_below="@+id/ask_text"
+            android:layout_alignRight="@+id/ask_text"
+            android:layout_width="90dp"
+            android:layout_height="40dp" />
+    </RelativeLayout>
+
 </RelativeLayout>

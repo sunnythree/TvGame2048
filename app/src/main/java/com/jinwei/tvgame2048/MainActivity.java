@@ -11,8 +11,10 @@ import android.preference.PreferenceManager;
 import android.view.KeyEvent;
 import android.view.SurfaceView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import com.jinwei.tvgame2048.model.Game2048StaticControl;
 import com.jinwei.tvgame2048.presenter.MainPresenter;
@@ -28,6 +30,7 @@ public class MainActivity extends Activity {
     @Bind(R.id.history_text_view) TextView mHighestScoresTextView;
     @Bind(R.id.text_hint) TextView mHintTextView;
     @Bind(R.id.text_mode) TextView mModeTextView;
+    @Bind(R.id.text_scores_dex) ViewGroup mViewGroup;
     MainPresenter mainPresenter;
     Handler mHandler = new Handler(){
         @Override
@@ -40,6 +43,10 @@ public class MainActivity extends Activity {
                 }
                 case Game2048StaticControl.EXIT_CURRENT_GAME:{
                     finish();
+                    break;
+                }
+                case Game2048StaticControl.SHOW_GAME_SCORES:{
+                    mViewGroup.setVisibility(View.VISIBLE);
                     break;
                 }
             }
@@ -72,7 +79,14 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         mainPresenter.forcusGame();
+        mHandler.sendEmptyMessageDelayed(Game2048StaticControl.SHOW_GAME_SCORES,500);
         super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        mViewGroup.setVisibility(View.INVISIBLE);
+        super.onPause();
     }
 
     @Override

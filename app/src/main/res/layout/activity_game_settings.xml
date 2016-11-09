@@ -8,34 +8,37 @@
         android:orientation="vertical"
         android:background="@drawable/bg_round_rectangle_stroke"
         android:layout_alignParentRight="true"
+        android:layout_marginEnd="110dp"
         android:layout_centerVertical="true"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:weightSum="1">
-
+        android:layout_height="wrap_content">
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             style="@style/settings_linearlayout_item_style"
             android:background="@drawable/bg_selector_focus_edge_top"
             android:orientation="horizontal"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="9dp"
             android:id="@+id/game_settings_sound"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            <ImageView
+                style="@style/settings_image_item_style"
+                android:id="@+id/imageview_sound"
+                android:src="@mipmap/game_sound_off_unforcus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
             <TextView
                 style="@style/settings_text_item_style"
+                android:id="@+id/textview_sound"
                 android:text="@string/game_setting_sound"
                 android:layout_width="90dp"
                 android:layout_height="wrap_content" />
-            <ImageView
-                style="@style/settings_image_item_style"
-                android:src="@mipmap/game_sound_off_focus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
         </LinearLayout>
         <ImageView
-            android:background="@android:color/white"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:background="@color/gray_stoke"
             android:layout_width="match_parent"
-            android:layout_height="5dp" />
+            android:layout_height="10dp" />
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             style="@style/settings_linearlayout_item_style"
             android:background="@drawable/bg_selector_focus"
@@ -43,58 +46,94 @@
             android:id="@+id/game_settings_go_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+            <ImageView
+                style="@style/settings_image_item_style"
+                android:id="@+id/imageview_back"
+                android:src="@mipmap/game_back_unforcus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
             <TextView
                 style="@style/settings_text_item_style"
+                android:id="@+id/textview_back"
                 android:text="@string/game_setting_go_back"
                 android:layout_width="90dp"
                 android:layout_height="wrap_content" />
-            <ImageView
-                style="@style/settings_image_item_style"
-                android:src="@mipmap/game_sound_off_focus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
         </LinearLayout>
         <ImageView
-            android:background="@android:color/white"
+            android:id="@+id/image_view_after_back"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:background="@color/gray_stoke"
             android:layout_width="match_parent"
-            android:layout_height="5dp" />
+            android:layout_height="12dp" />
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             style="@style/settings_linearlayout_item_style"
             android:background="@drawable/bg_selector_focus"
             android:id="@+id/game_settings_go_home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+            <ImageView
+                style="@style/settings_image_item_style"
+                android:id="@+id/imageview_home"
+                android:src="@mipmap/game_home_unfocus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
             <TextView
                 style="@style/settings_text_item_style"
+                android:id="@+id/textview_home"
                 android:text="@string/game_setting_go_home"
                 android:layout_width="90dp"
                 android:layout_height="wrap_content" />
-            <ImageView
-                style="@style/settings_image_item_style"
-                android:src="@mipmap/game_sound_off_focus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
         </LinearLayout>
         <ImageView
-            android:background="@android:color/white"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:background="@color/gray_stoke"
             android:layout_width="match_parent"
-            android:layout_height="5dp" />
+            android:layout_height="12dp" />
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             style="@style/settings_linearlayout_item_style"
-            android:background="@drawable/bg_selector_forcus_edge_bottom"
+            android:background="@drawable/bg_selector_focus"
             android:id="@+id/game_settings_restart"
-            android:layout_marginBottom="5dp"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+            <ImageView
+                style="@style/settings_image_item_style"
+                android:id="@+id/imageview_restart"
+                android:src="@mipmap/game_restart_unforcus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
             <TextView
                 style="@style/settings_text_item_style"
+                android:id="@+id/textview_restart"
                 android:text="@string/game_setting_restart"
                 android:layout_width="90dp"
                 android:layout_height="wrap_content" />
+        </LinearLayout>
+        <ImageView
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:background="@color/gray_stoke"
+            android:layout_width="match_parent"
+            android:layout_height="12dp" />
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            style="@style/settings_linearlayout_item_style"
+            android:background="@drawable/bg_selector_forcus_edge_bottom"
+            android:id="@+id/game_settings_share"
+            android:layout_marginBottom="9dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
             <ImageView
                 style="@style/settings_image_item_style"
-                android:src="@mipmap/game_sound_off_focus"
+                android:id="@+id/imageview_share"
+                android:src="@mipmap/game_sound_off_unforcus"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                style="@style/settings_text_item_style"
+                android:id="@+id/textview_share"
+                android:text="@string/game_share"
+                android:layout_width="90dp"
                 android:layout_height="wrap_content" />
         </LinearLayout>
     </LinearLayout>

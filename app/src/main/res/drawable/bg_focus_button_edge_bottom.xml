@@ -5,7 +5,7 @@
     <item android:bottom="20dp">
         <shape>
             <size android:height="20dp"/>
-            <solid android:color="@android:color/holo_blue_light" />
+            <solid android:color="@color/blue_number2" />
         </shape>
     </item>
     <!-- 第二层 -->
@@ -13,7 +13,7 @@
     <item android:top="10dp">
         <shape>
             <!-- 实心填充颜色 -->
-            <solid android:color="@android:color/holo_blue_light"/>
+            <solid android:color="@color/blue_number2"/>
             <corners android:radius="10dp"/>
         </shape>
     </item>

@@ -17,12 +17,16 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.SurfaceHolder;
 
+import com.google.gson.Gson;
 import com.jinwei.tvgame2048.R;
 import com.jinwei.tvgame2048.algorithm.Game2048Algorithm;
 import com.jinwei.tvgame2048.model.Game2048StaticControl;
 import com.jinwei.tvgame2048.model.Number;
+import com.jinwei.tvgame2048.model.Numbers;
 import com.jinwei.tvgame2048.model.NumbersItemOfQueue;
 import com.jinwei.tvgame2048.model.NumbersQueue;
+
+import org.json.JSONArray;
 
 import java.util.HashMap;
 
@@ -157,16 +161,39 @@ public class GameSurfaceViewHelper {
         };
     }
     public void init(){
-        mGAM.initTowNumbers();
+        SharedPreferences preference = PreferenceManager.getDefaultSharedPreferences(mContext);
+        String savedGame = preference.getString("mode"+Game2048StaticControl.gamePlayMode+Game2048StaticControl.isGoBackEnabled,null);
+        if (savedGame !=null){
+            Gson gson = new Gson();
+            int game[][] = gson.fromJson(savedGame,int[][].class);
+            for(int i=0;i<Game2048StaticControl.gamePlayMode;i++){
+                for(int j=0;j<Game2048StaticControl.gamePlayMode;j++){
+                    mGAM.getNumber(i,j).mScores = game[i][j];
+                }
+            }
+        }else {
+               mGAM.initTowNumbers();
+        }
         doDrawGameSurface();
     }
     public void exit(){
+        Log.d(TAG,"exit");
         mHandlerThread.quitSafely();
         mSoundPool.release();
         mContext.unregisterReceiver(mReceiver);
         SharedPreferences preference = PreferenceManager.getDefaultSharedPreferences(mContext);
         SharedPreferences.Editor editor =  preference.edit();
         editor.putInt("bestScores",Game2048StaticControl.gameHistoryHighestScores);
+        editor.commit();
+        int game[][] = new int[Game2048StaticControl.gamePlayMode][Game2048StaticControl.gamePlayMode];
+        for(int i=0;i<Game2048StaticControl.gamePlayMode;i++){
+            for(int j=0;j<Game2048StaticControl.gamePlayMode;j++){
+                game[i][j]=mGAM.getNumber(i,j).mScores;
+            }
+        }
+        Gson gson = new Gson();
+        String savedGame = gson.toJson(game);
+        editor.putString("mode"+Game2048StaticControl.gamePlayMode+Game2048StaticControl.isGoBackEnabled,savedGame);
         editor.commit();
     }
     public void registListener(GameSurfaceView surfaceView){
@@ -261,23 +288,23 @@ public class GameSurfaceViewHelper {
         Log.d(TAG,"gameOver");
         Game2048StaticControl.gameHasFail = true;
         doDrawGameSurface();
-        Canvas canvas = mHolder.lockCanvas();
-        if(canvas == null){
-            Log.d(TAG,"gameOver lockCanvas error");
-            return;
-        }
-        mDrawTools.drawGameOver(canvas,mPaint);
-        mHolder.unlockCanvasAndPost(canvas);
+//        Canvas canvas = mHolder.lockCanvas();
+//        if(canvas == null){
+//            Log.d(TAG,"gameOver lockCanvas error");
+//            return;
+//        }
+//        mDrawTools.drawGameOver(canvas,mPaint);
+//        mHolder.unlockCanvasAndPost(canvas);
     }
     public void gameVictory(){
         Game2048StaticControl.gameHasWin = true;
         doDrawGameSurface();
-        Canvas canvas = mHolder.lockCanvas();
-        if(canvas == null){
-            Log.d(TAG,"gameVictory lockCanvas error");
-            return;
-        }
-        mDrawTools.drawGameVictory(canvas,mPaint);
-        mHolder.unlockCanvasAndPost(canvas);
+//        Canvas canvas = mHolder.lockCanvas();
+//        if(canvas == null){
+//            Log.d(TAG,"gameVictory lockCanvas error");
+//            return;
+//        }
+//        mDrawTools.drawGameVictory(canvas,mPaint);
+//        mHolder.unlockCanvasAndPost(canvas);
     }
 }

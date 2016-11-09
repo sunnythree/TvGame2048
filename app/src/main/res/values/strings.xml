@@ -4,15 +4,15 @@
     <string name="text_mode4">4X4(classic)</string>
     <string name="text_mode5">5X5</string>
     <string name="text_mode6">6X6</string>
-    <string name="allow_go_back_ask">Allow go back?</string>
+    <string name="allow_go_back_ask">Allow to go back?</string>
     <string name="allow_go_back">Yes</string>
     <string name="forbid_go_back">No</string>
 
     <string name="game_best_scores">Best:</string>
     <string name="game_current_scores">Scores:</string>
 
-    <string name="game_setting_go_home">Go home</string>
-    <string name="game_setting_go_back">Go back</string>
+    <string name="game_setting_go_home">Home</string>
+    <string name="game_setting_go_back">Back</string>
     <string name="game_setting_restart">Restart</string>
     <string name="game_setting_sound">Sound</string>
 

@@ -8,6 +8,7 @@
 <LinearLayout
         android:orientation="vertical"
         android:layout_centerInParent="true"
+        android:padding="6dp"
         android:background="@drawable/bg_round_rectangle_stroke"
         android:layout_width="250dp"
         android:layout_height="wrap_content">
@@ -19,9 +20,11 @@
             android:layout_width="match_parent"
             android:layout_height="75dp" />
         <ImageView
-            android:background="@android:color/darker_gray"
+            android:background="@color/gray_stoke"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
             android:layout_width="match_parent"
-            android:layout_height="3dp" />
+            android:layout_height="@dimen/width_stroke" />
         <Button
             style="@style/choice_mode_button_style"
             android:id="@+id/button_mode4"
@@ -29,9 +32,11 @@
             android:layout_width="match_parent"
             android:layout_height="75dp" />
         <ImageView
-            android:background="@android:color/darker_gray"
+            android:background="@color/gray_stoke"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
             android:layout_width="match_parent"
-            android:layout_height="3dp" />
+            android:layout_height="@dimen/width_stroke" />
         <Button
             style="@style/choice_mode_button_style"
             android:id="@+id/button_mode5"
@@ -39,24 +44,16 @@
             android:layout_width="match_parent"
             android:layout_height="75dp" />
         <ImageView
-            android:background="@android:color/darker_gray"
+            android:background="@color/gray_stoke"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
             android:layout_width="match_parent"
-            android:layout_height="3dp" />
+            android:layout_height="@dimen/width_stroke" />
         <Button
-            style="@style/choice_mode_button_style"
-            android:id="@+id/button_mode6"
-            android:text="@string/text_mode6"
-            android:layout_width="match_parent"
-            android:layout_height="75dp" />
-        <ImageView
-            android:background="@android:color/darker_gray"
-            android:layout_width="match_parent"
-            android:layout_height="3dp" />
-        <Button
-            android:layout_marginBottom="5dp"
             style="@style/choice_mode_button_style_bottom"
-            android:id="@+id/button_settings"
-            android:text="settings"
+            android:id="@+id/button_mode6"
+            android:layout_marginBottom="5dp"
+            android:text="@string/text_mode6"
             android:layout_width="match_parent"
             android:layout_height="75dp" />
     </LinearLayout>

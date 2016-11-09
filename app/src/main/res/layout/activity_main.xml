@@ -9,9 +9,10 @@
     tools:context="com.jinwei.tvgame2048.MainActivity">
     <RelativeLayout
         android:layout_marginLeft="100dp"
+        android:background="@drawable/bg_round_rectangle_game_play_stroke"
         android:layout_gravity="center_vertical"
-        android:layout_width="410dp"
-        android:layout_height="410dp">
+        android:layout_width="420dp"
+        android:layout_height="420dp">
         <com.jinwei.tvgame2048.ui.GameSurfaceView
             android:id="@+id/game_surface_view"
             android:focusableInTouchMode="true"
@@ -28,8 +29,9 @@
         <LinearLayout
             android:id="@+id/text_scores_dex"
             android:layout_centerInParent="true"
-            android:orientation="vertical"
+            android:padding="6dp"
             android:background="@drawable/bg_round_rectangle_stroke"
+            android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <LinearLayout
@@ -50,9 +52,11 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
             <ImageView
-                android:background="@android:color/white"
+                android:background="@color/gray_stoke"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"
                 android:layout_width="match_parent"
-                android:layout_height="5dp" />
+                android:layout_height="@dimen/width_stroke" />
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
@@ -75,18 +79,20 @@
             android:orientation="vertical"
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="60dp"
+            android:layout_marginBottom="70dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <TextView
                 android:layout_gravity="center_horizontal"
                 android:id="@+id/text_mode"
                 android:textSize="20sp"
+                android:textColor="@color/gray_stoke"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
                 android:layout_gravity="center_horizontal"
                 android:id="@+id/text_hint"
+                android:textColor="@color/gray_stoke"
                 android:textSize="20sp"
                 android:layout_below="@+id/text_hint"
                 android:layout_width="wrap_content"

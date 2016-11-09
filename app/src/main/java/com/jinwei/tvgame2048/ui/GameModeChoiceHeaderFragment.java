@@ -31,7 +31,6 @@ public class GameModeChoiceHeaderFragment extends Fragment {
     Button buttonMode4;
     Button buttonMode5;
     Button buttonMode6;
-    Button buttonSettings;
     ButtonForcusChangeListener buttonForcusChangeListener = new ButtonForcusChangeListener();
     ButtonClickListener buttonClickListener = new ButtonClickListener();
     @Nullable
@@ -42,18 +41,15 @@ public class GameModeChoiceHeaderFragment extends Fragment {
         buttonMode4 = ButterKnife.findById(view,R.id.button_mode4);
         buttonMode5 = ButterKnife.findById(view,R.id.button_mode5);
         buttonMode6 = ButterKnife.findById(view,R.id.button_mode6);
-        buttonSettings = ButterKnife.findById(view,R.id.button_settings);
         buttonMode3.setOnClickListener(buttonClickListener);
         buttonMode4.setOnClickListener(buttonClickListener);
         buttonMode5.setOnClickListener(buttonClickListener);
         buttonMode6.setOnClickListener(buttonClickListener);
-        buttonSettings.setOnClickListener(buttonClickListener);
         //set onForcusChangerListener
         buttonMode3.setOnFocusChangeListener(buttonForcusChangeListener);
         buttonMode4.setOnFocusChangeListener(buttonForcusChangeListener);
         buttonMode5.setOnFocusChangeListener(buttonForcusChangeListener);
         buttonMode6.setOnFocusChangeListener(buttonForcusChangeListener);
-        buttonSettings.setOnFocusChangeListener(buttonForcusChangeListener);
         return view;
     }
     private void goGameMainActivity(){
@@ -92,57 +88,6 @@ public class GameModeChoiceHeaderFragment extends Fragment {
         return askDialog;
     }
 
-    private Dialog buildSettingsDialog(){
-        Activity activity = getActivity();
-        final Dialog settingsDialog = new Dialog(activity,R.style.CustomDialog);
-        settingsDialog.setContentView(R.layout.setting_dialog_layout);
-        ImageButton imageButton = (ImageButton) settingsDialog.findViewById(R.id.button_sound_switch);
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(Game2048StaticControl.isGameSoundOn){
-                    Game2048StaticControl.isGameSoundOn = false;
-                    SharedPreferences preference = PreferenceManager.getDefaultSharedPreferences(getActivity());
-                    SharedPreferences.Editor  editor  =  preference.edit();
-                    editor.putBoolean("isSoundOn",false);
-                    editor.commit();
-                }else {
-                    Game2048StaticControl.isGameSoundOn = true;
-                    SharedPreferences preference = PreferenceManager.getDefaultSharedPreferences(getActivity());
-                    SharedPreferences.Editor  editor  =  preference.edit();
-                    editor.putBoolean("isSoundOn",true);
-                    editor.commit();
-                }
-            }
-        });
-        Button button = (Button) settingsDialog.findViewById(R.id.button_share);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                shareGame2048();
-                if(settingsDialog != null){
-                    settingsDialog.dismiss();
-                }
-            }
-        });
-        button = (Button) settingsDialog.findViewById(R.id.button_cancel);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(settingsDialog != null){
-                    settingsDialog.dismiss();
-                }
-            }
-        });
-        return settingsDialog;
-    }
-    private void shareGame2048(){
-        Intent sendIntent = new Intent();
-        sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT, "I am playing 2048 game,do you want to play it?");
-        sendIntent.setType("text/plain");
-        startActivity(Intent.createChooser(sendIntent, "Share to ..."));
-    }
     class ButtonForcusChangeListener implements View.OnFocusChangeListener{
         GameModeChoiceBodyFragment fragment;
         @Override
@@ -156,7 +101,7 @@ public class GameModeChoiceHeaderFragment extends Fragment {
                         fragment.setImageViewSrc(0);
                         ((Button)v).setTextColor(Color.WHITE);
                     }else{
-                        ((Button)v).setTextColor(Color.DKGRAY);
+                        ((Button)v).setTextColor(getActivity().getColor(R.color.gray_stoke));
                     }
                     break;
                 }
@@ -165,7 +110,7 @@ public class GameModeChoiceHeaderFragment extends Fragment {
                         fragment.setImageViewSrc(1);
                         ((Button)v).setTextColor(Color.WHITE);
                     }else{
-                        ((Button)v).setTextColor(Color.DKGRAY);
+                        ((Button)v).setTextColor(getActivity().getColor(R.color.gray_stoke));
                     }
                     break;
                 }
@@ -174,7 +119,7 @@ public class GameModeChoiceHeaderFragment extends Fragment {
                         fragment.setImageViewSrc(2);
                         ((Button)v).setTextColor(Color.WHITE);
                     }else{
-                        ((Button)v).setTextColor(Color.DKGRAY);
+                        ((Button)v).setTextColor(getActivity().getColor(R.color.gray_stoke));
                     }
                     break;
                 }
@@ -183,16 +128,7 @@ public class GameModeChoiceHeaderFragment extends Fragment {
                         fragment.setImageViewSrc(3);
                         ((Button)v).setTextColor(Color.WHITE);
                     }else{
-                        ((Button)v).setTextColor(Color.DKGRAY);
-                    }
-                    break;
-                }
-                case R.id.button_settings: {
-                    if(hasFocus){
-                        //fragment.setImageViewSrc(2);
-                        ((Button)v).setTextColor(Color.WHITE);
-                    }else{
-                        ((Button)v).setTextColor(Color.DKGRAY);
+                        ((Button)v).setTextColor(getActivity().getColor(R.color.gray_stoke));
                     }
                     break;
                 }
@@ -222,10 +158,6 @@ public class GameModeChoiceHeaderFragment extends Fragment {
                 case R.id.button_mode6: {
                     Game2048StaticControl.gamePlayMode = 6;
                     buildAskDialog().show();
-                    break;
-                }
-                case R.id.button_settings: {
-                    buildSettingsDialog().show();
                     break;
                 }
             }

@@ -19,12 +19,9 @@ public class DrawTools {
         mGAM =game2048Algorithm;
     }
     public static void initSurfaceBg(Canvas canvas, Paint paint){
-        canvas.drawColor(Color.WHITE);
-        paint.setColor(Game2048StaticControl.gameSurfacceViewGbColor);
-        canvas.drawRoundRect(0,0,Game2048StaticControl.gameSurfaceLength,Game2048StaticControl.gameSurfaceLength,20,20,paint);
+        canvas.drawColor(Game2048StaticControl.gameSurfacceViewGbColor);
     }
     public void drawSurfaceMap(Canvas canvas, Paint paint){
-        paint.setColor(Color.WHITE);
         for(int i=0;i<Game2048StaticControl.gamePlayMode;i++){
             for(int j=0;j<Game2048StaticControl.gamePlayMode;j++){
                 paint.setColor(Color.WHITE);
@@ -52,11 +49,7 @@ public class DrawTools {
                 Game2048StaticControl.gameRadiumOfNumberViews, paint);
         //2.draw text
         //2.1 set color
-        if(scores>16){
-            paint.setColor(Color.WHITE);
-        }else {
-            paint.setColor(Color.RED);
-        }
+        paint.setColor(Color.WHITE);
         //2.2 set text size
         String text = String.valueOf(scores);
         float textSize = 100f;
@@ -82,11 +75,7 @@ public class DrawTools {
                 Game2048StaticControl.gameRadiumOfNumberViews, paint);
         //2.draw text
         //2.1set color
-        if(scores>16){
-            paint.setColor(Color.WHITE);
-        }else {
-            paint.setColor(Color.RED);
-        }
+        paint.setColor(Color.WHITE);
         //2.2set text size
         String text = String.valueOf(scores);
         int numberCount = 1;
@@ -118,11 +107,7 @@ public class DrawTools {
                 Game2048StaticControl.gameRadiumOfNumberViews, paint);
         //2.draw text
         //2.1 set color
-        if(scores>16){
-            paint.setColor(Color.WHITE);
-        }else {
-            paint.setColor(Color.RED);
-        }
+        paint.setColor(Color.WHITE);
         //2.2 set text size
         String text = String.valueOf(scores);
         int numberCount = 1;

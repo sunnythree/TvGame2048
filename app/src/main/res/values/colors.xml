@@ -7,4 +7,8 @@
     <color name="button_focus">#ffff45</color>
     <color name="bg_game_settings">#878787</color>
     <color name="half_transparency_wihte">#a0a0a0a0</color>
+    <color name="gray_stoke">#76454545</color>
+    <color name="gray_play_stoke">#a0a0a0</color>
+    <color name="blue_number2">#425992</color>
+    <color name="white_bg_dialog">#c8ffffff</color>
 </resources>
