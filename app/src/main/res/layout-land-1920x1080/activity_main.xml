@@ -85,7 +85,7 @@
             <TextView
                 android:layout_gravity="center_horizontal"
                 android:id="@+id/text_mode"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:textColor="@color/gray_stoke"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -93,7 +93,16 @@
                 android:layout_gravity="center_horizontal"
                 android:id="@+id/text_hint"
                 android:textColor="@color/gray_stoke"
-                android:textSize="20sp"
+                android:textSize="16sp"
+                android:layout_below="@+id/text_hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/text_menu_hint"
+                android:textColor="@color/gray_stoke"
+                android:text="@string/menu_key_hint"
+                android:textSize="16sp"
                 android:layout_below="@+id/text_hint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

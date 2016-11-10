@@ -22,4 +22,5 @@
     <string name="go_home">Go home?</string>
     <string name="game_share">Share</string>
     <string name="cancel">Cancel</string>
+    <string name="menu_key_hint">Press MENU key to get more options</string>
 </resources>

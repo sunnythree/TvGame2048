@@ -16,13 +16,12 @@ import android.os.Message;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.SurfaceHolder;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.jinwei.tvgame2048.R;
 import com.jinwei.tvgame2048.algorithm.Game2048Algorithm;
 import com.jinwei.tvgame2048.model.Game2048StaticControl;
-import com.jinwei.tvgame2048.model.Number;
-import com.jinwei.tvgame2048.model.Numbers;
 import com.jinwei.tvgame2048.model.NumbersItemOfQueue;
 import com.jinwei.tvgame2048.model.NumbersQueue;
 
@@ -56,6 +55,7 @@ public class GameSurfaceViewHelper {
                 NumbersItemOfQueue numbersItemOfQueue = mNumberQueue.pullItem();
                 if(numbersItemOfQueue == null){
                     Log.d(TAG,"cannot back any more");
+                    Toast.makeText(mContext,"Can not back any more!!!",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 mGAM.resetCurrentNumbers(numbersItemOfQueue.mNumbers);
@@ -63,6 +63,9 @@ public class GameSurfaceViewHelper {
             }else if(action.equals("com.game2048.restart")){
                 mGAM.restartGame();
                 doDrawGameSurface();
+                Game2048StaticControl.gameCurrentScores = 0;
+                mHandler.sendEmptyMessage(Game2048StaticControl.UPDATE_CURRENT_HISTORY_SCORES);
+
             }else if(action.equals("com.game2048.exit")){
                 mHandler.sendEmptyMessage(Game2048StaticControl.EXIT_CURRENT_GAME);
             }
@@ -171,9 +174,15 @@ public class GameSurfaceViewHelper {
                     mGAM.getNumber(i,j).mScores = game[i][j];
                 }
             }
+            Game2048StaticControl.isShouldCheckGameWin =  preference.getBoolean("isShouldCheckGameWin"+Game2048StaticControl.gamePlayMode+Game2048StaticControl.isGoBackEnabled,false);
+            Game2048StaticControl.gameCurrentScores = preference.getInt("currentScores"+Game2048StaticControl.gamePlayMode+Game2048StaticControl.isGoBackEnabled,0);
         }else {
-               mGAM.initTowNumbers();
+            mGAM.initTowNumbers();
+            Game2048StaticControl.gameCurrentScores = 0;
+            Game2048StaticControl.isShouldCheckGameWin = true;
         }
+        Game2048StaticControl.gameHistoryHighestScores = preference.getInt("bestScores"+Game2048StaticControl.gamePlayMode+Game2048StaticControl.isGoBackEnabled,0);
+        mHandler.sendEmptyMessage(Game2048StaticControl.UPDATE_CURRENT_HISTORY_SCORES);
         doDrawGameSurface();
     }
     public void exit(){
@@ -183,7 +192,9 @@ public class GameSurfaceViewHelper {
         mContext.unregisterReceiver(mReceiver);
         SharedPreferences preference = PreferenceManager.getDefaultSharedPreferences(mContext);
         SharedPreferences.Editor editor =  preference.edit();
-        editor.putInt("bestScores",Game2048StaticControl.gameHistoryHighestScores);
+        editor.putInt("bestScores"+Game2048StaticControl.gamePlayMode+Game2048StaticControl.isGoBackEnabled,Game2048StaticControl.gameHistoryHighestScores);
+        editor.putInt("currentScores"+Game2048StaticControl.gamePlayMode+Game2048StaticControl.isGoBackEnabled,Game2048StaticControl.gameCurrentScores);
+        editor.putBoolean("isShouldCheckGameWin"+Game2048StaticControl.gamePlayMode+Game2048StaticControl.isGoBackEnabled,Game2048StaticControl.isShouldCheckGameWin);
         editor.commit();
         int game[][] = new int[Game2048StaticControl.gamePlayMode][Game2048StaticControl.gamePlayMode];
         for(int i=0;i<Game2048StaticControl.gamePlayMode;i++){
