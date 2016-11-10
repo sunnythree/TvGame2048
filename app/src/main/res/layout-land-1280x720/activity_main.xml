@@ -11,15 +11,15 @@
         android:layout_marginLeft="100dp"
         android:background="@drawable/bg_round_rectangle_game_play_stroke"
         android:layout_gravity="center_vertical"
-        android:layout_width="320dp"
-        android:layout_height="320dp">
+        android:layout_width="340dp"
+        android:layout_height="340dp">
         <com.jinwei.tvgame2048.ui.GameSurfaceView
             android:id="@+id/game_surface_view"
             android:focusableInTouchMode="true"
             android:focusable="true"
             android:layout_centerInParent="true"
-            android:layout_width="300dp"
-            android:layout_height="300dp" />
+            android:layout_width="320dp"
+            android:layout_height="320dp" />
     </RelativeLayout>
 
     <RelativeLayout

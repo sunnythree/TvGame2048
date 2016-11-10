@@ -64,6 +64,7 @@ public class GameSurfaceViewHelper {
                 mGAM.restartGame();
                 doDrawGameSurface();
                 Game2048StaticControl.gameCurrentScores = 0;
+                Game2048StaticControl.isShouldCheckGameWin = true;
                 mHandler.sendEmptyMessage(Game2048StaticControl.UPDATE_CURRENT_HISTORY_SCORES);
 
             }else if(action.equals("com.game2048.exit")){

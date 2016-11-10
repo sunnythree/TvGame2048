@@ -6,8 +6,8 @@
     android:layout_height="match_parent">
     <FrameLayout
         android:layout_centerInParent="true"
-        android:layout_width="300dp"
-        android:layout_height="300dp">
+        android:layout_width="320dp"
+        android:layout_height="320dp">
         <ImageView
             android:src="@mipmap/mode3"
             android:id="@+id/fragment_body_imageview"

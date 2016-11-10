@@ -101,7 +101,7 @@ public class GameModeChoiceHeaderFragment extends Fragment {
                         fragment.setImageViewSrc(0);
                         ((Button)v).setTextColor(Color.WHITE);
                     }else{
-                        ((Button)v).setTextColor(getActivity().getColor(R.color.gray_stoke));
+                        ((Button)v).setTextColor(Color.parseColor("#76454545"));
                     }
                     break;
                 }
@@ -110,7 +110,7 @@ public class GameModeChoiceHeaderFragment extends Fragment {
                         fragment.setImageViewSrc(1);
                         ((Button)v).setTextColor(Color.WHITE);
                     }else{
-                        ((Button)v).setTextColor(getActivity().getColor(R.color.gray_stoke));
+                        ((Button)v).setTextColor(Color.parseColor("#76454545"));
                     }
                     break;
                 }
@@ -119,7 +119,7 @@ public class GameModeChoiceHeaderFragment extends Fragment {
                         fragment.setImageViewSrc(2);
                         ((Button)v).setTextColor(Color.WHITE);
                     }else{
-                        ((Button)v).setTextColor(getActivity().getColor(R.color.gray_stoke));
+                        ((Button)v).setTextColor(Color.parseColor("#76454545"));
                     }
                     break;
                 }
@@ -128,7 +128,7 @@ public class GameModeChoiceHeaderFragment extends Fragment {
                         fragment.setImageViewSrc(3);
                         ((Button)v).setTextColor(Color.WHITE);
                     }else{
-                        ((Button)v).setTextColor(getActivity().getColor(R.color.gray_stoke));
+                        ((Button)v).setTextColor(Color.parseColor("#76454545"));
                     }
                     break;
                 }
