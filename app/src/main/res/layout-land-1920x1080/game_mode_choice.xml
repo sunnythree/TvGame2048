@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@mipmap/game_background"
+    android:id="@+id/choice_mode_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <fragment
+        android:id="@+id/fragment_header"
+        android:name="com.jinwei.tvgame2048.ui.GameModeChoiceHeaderFragment"
+        android:layout_width="400dp"
+        android:layout_height="match_parent"
+        />
+    <fragment
+        android:id="@+id/fragment_body"
+        android:layout_toRightOf="@+id/fragment_header"
+        android:name="com.jinwei.tvgame2048.ui.GameModeChoiceBodyFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+</RelativeLayout>

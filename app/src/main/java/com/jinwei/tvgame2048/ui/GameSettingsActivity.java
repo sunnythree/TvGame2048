@@ -81,7 +81,7 @@ public class GameSettingsActivity extends Activity {
                         }else {
                             imageView.setImageResource(R.mipmap.game_sound_off_unforcus);
                         }
-                        textView.setTextColor(getColor(R.color.gray_stoke));
+                        textView.setTextColor(Color.parseColor("#76454545"));
                     }
                     break;
                 }
@@ -93,7 +93,7 @@ public class GameSettingsActivity extends Activity {
                         textView.setTextColor(Color.WHITE);
                     }else {
                         imageView.setImageResource(R.mipmap.game_back_unforcus);
-                        textView.setTextColor(getColor(R.color.gray_stoke));
+                        textView.setTextColor(Color.parseColor("#76454545"));
                     }
                     break;
                 }
@@ -105,7 +105,7 @@ public class GameSettingsActivity extends Activity {
                         textView.setTextColor(Color.WHITE);
                     }else {
                         imageView.setImageResource(R.mipmap.game_home_unfocus);
-                        textView.setTextColor(getColor(R.color.gray_stoke));
+                        textView.setTextColor(Color.parseColor("#76454545"));
                     }
                     break;
                 }
@@ -117,7 +117,7 @@ public class GameSettingsActivity extends Activity {
                         textView.setTextColor(Color.WHITE);
                     }else {
                         imageView.setImageResource(R.mipmap.game_restart_unforcus);
-                        textView.setTextColor(getColor(R.color.gray_stoke));
+                        textView.setTextColor(Color.parseColor("#76454545"));
                     }
                     break;
                 }
@@ -129,7 +129,7 @@ public class GameSettingsActivity extends Activity {
                         textView.setTextColor(Color.WHITE);
                     }else {
                         imageView.setImageResource(R.mipmap.game_share_unforcus);
-                        textView.setTextColor(getColor(R.color.gray_stoke));
+                        textView.setTextColor(Color.parseColor("#76454545"));
                     }
                     break;
                 }

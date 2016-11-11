@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -44,18 +44,34 @@
         <item name="android:textColor">@color/blue_number2</item>
     </style>
     <style name="settings_text_item_style">
-        <item name="android:layout_marginStart">15dp</item>
-        <item name="android:layout_marginEnd">20dp</item>
+    <item name="android:layout_marginLeft">15dp</item>
+    <item name="android:layout_marginRight">20dp</item>
+    <item name="android:layout_gravity">center_vertical</item>
+    <item name="android:gravity">center_vertical</item>
+    <item name="android:textSize">20sp</item>
+    <item name="android:textColor">@color/gray_stoke</item>
+</style>
+    <style name="settings_text_item_style_720p">
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_marginRight">25dp</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">28sp</item>
         <item name="android:textColor">@color/gray_stoke</item>
     </style>
     <style name="settings_image_item_style">
-        <item name="android:layout_marginStart">30dp</item>
-        <item name="android:layout_marginEnd">15dp</item>
-        <item name="android:layout_marginTop">12dp</item>
-        <item name="android:layout_marginBottom">12dp</item>
+        <item name="android:layout_marginLeft">30dp</item>
+        <item name="android:layout_marginRight">15dp</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:layout_marginBottom">6dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+    <style name="settings_image_item_style_720p">
+        <item name="android:layout_marginLeft">50dp</item>
+        <item name="android:layout_marginRight">25dp</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:gravity">center_vertical</item>
     </style>
@@ -63,13 +79,19 @@
         <item name="android:layout_gravity">center_horizontal</item>
         <item name="android:focusable">true</item>
         <item name="android:focusableInTouchMode">true</item>
-        <item name="android:layout_marginStart">12dp</item>
-        <item name="android:layout_marginEnd">12dp</item>
+        <item name="android:layout_marginLeft">12dp</item>
+        <item name="android:layout_marginRight">12dp</item>
     </style>
     <style name="score_title_textview">
         <item name="android:layout_margin">10dp</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">26sp</item>
+        <item name="android:textColor">@color/blue_number2</item>
+    </style>
+    <style name="score_title_textview720p">
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">32sp</item>
         <item name="android:textColor">@color/blue_number2</item>
     </style>
     <style name="choice_mode_button_style">

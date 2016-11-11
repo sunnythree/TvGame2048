@@ -9,6 +9,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -82,7 +83,7 @@ public class GameSurfaceViewHelper {
         mPaint.setAntiAlias(true);
         mGAM = new Game2048Algorithm(mHandler);
         mDrawTools = new DrawTools(mGAM);
-        mSoundPool = new SoundPool.Builder().build();
+        mSoundPool = new SoundPool(5,AudioManager.STREAM_MUSIC, 0);
         mNumberQueue = new NumbersQueue(6);
         mSoundMap.put(1,mSoundPool.load(context, R.raw.move,1));
         mSoundMap.put(2,mSoundPool.load(context, R.raw.merge,1));

@@ -79,13 +79,13 @@
             android:orientation="vertical"
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="70dp"
+            android:layout_marginBottom="60dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <TextView
                 android:layout_gravity="center_horizontal"
                 android:id="@+id/text_mode"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:textColor="@color/gray_stoke"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -93,7 +93,7 @@
                 android:layout_gravity="center_horizontal"
                 android:id="@+id/text_hint"
                 android:textColor="@color/gray_stoke"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:layout_below="@+id/text_hint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -102,7 +102,7 @@
                 android:id="@+id/text_menu_hint"
                 android:textColor="@color/gray_stoke"
                 android:text="@string/menu_key_hint"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:layout_below="@+id/text_hint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

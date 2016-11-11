@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@android:color/transparent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.jinwei.tvgame2048.ui.GameSettingsActivity">
+<LinearLayout
+        android:orientation="vertical"
+        android:layout_marginLeft="160dp"
+        android:layout_centerVertical="true"
+        android:padding="@dimen/width_stroke_720p_margin"
+        android:background="@drawable/bg_round_rectangle_stroke_720p"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_marginTop="@dimen/width_stroke_720p_margin"
+            style="@style/choice_mode_button_style_top"
+            android:id="@+id/button_mode3"
+            android:padding="8dp"
+            android:text="@string/text_mode3"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/width_header_720p" />
+        <ImageView
+            android:background="@color/gray_stoke"
+            android:layout_marginLeft="@dimen/width_stroke_720p_margin"
+            android:layout_marginRight="@dimen/width_stroke_720p_margin"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/width_stroke_720p" />
+        <Button
+            style="@style/choice_mode_button_style"
+            android:padding="5dp"
+            android:id="@+id/button_mode4"
+            android:text="@string/text_mode4"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/width_header_720p" />
+        <ImageView
+            android:background="@color/gray_stoke"
+            android:layout_marginLeft="@dimen/width_stroke_720p_margin"
+            android:layout_marginRight="@dimen/width_stroke_720p_margin"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/width_stroke_720p" />
+        <Button
+            style="@style/choice_mode_button_style"
+            android:padding="5dp"
+            android:id="@+id/button_mode5"
+            android:text="@string/text_mode5"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/width_header_720p" />
+        <ImageView
+            android:background="@color/gray_stoke"
+            android:layout_marginLeft="@dimen/width_stroke_720p_margin"
+            android:layout_marginRight="@dimen/width_stroke_720p_margin"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/width_stroke_720p" />
+        <Button
+            style="@style/choice_mode_button_style_bottom"
+            android:id="@+id/button_mode6"
+            android:layout_marginBottom="5dp"
+            android:text="@string/text_mode6"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/width_header_720p" />
+    </LinearLayout>
+</RelativeLayout>

@@ -7,4 +7,7 @@
     <dimen name="ask_dialog_width">400dp</dimen>
     <dimen name="ask_dialog_height">200dp</dimen>
     <dimen name="width_stroke">12dp</dimen>
+    <dimen name="width_stroke_720p">16dp</dimen>
+    <dimen name="width_stroke_720p_margin">8dp</dimen>
+    <dimen name="width_header_720p">110dp</dimen>
 </resources>
